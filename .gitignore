@@ -1,0 +1,11 @@
+# Project
+env.js
+
+# OS files
+.DS_Store
+.AppleDouble
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+.vscode

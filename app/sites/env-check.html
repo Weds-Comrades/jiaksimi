@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<script src="../env.js"></script>
+
+		<title>ENV Check</title>
+	</head>
+	<body>
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container-fluid d-flex flex-column">
+				<h1 class="display-4">If all alerts are green, you have sucessfully added your api-keys</h1>
+				<p>Otherwise, ensure <kbd>/app/env.js</kbd> values are filled up</p>
+			</div>
+
+			<!-- alerts -->
+			<div class="container-fluid d-flex flex-column" id="container">
+				<div class="alert alert-warning" id="foursquare">
+					FourSquare API keys are missing
+				</div>
+				<div class="alert alert-warning" id="google">
+					Google Maps API keys are missing
+				</div>
+				<div class="alert alert-warning" id="default-location">
+					Default Location is not set
+				</div>
+			</div>
+		</div>
+
+
+		<script>
+			var is_foursquare = checkFourSquare();
+			var is_googlemaps = checkGoogleMaps();
+			var is_defaultLocation = checkDefaultLocation();
+
+			if (is_foursquare && is_googlemaps && is_defaultLocation) {
+				var container = document.getElementById('container');
+				var button = document.createElement('button');
+				button.innerHTML = 'You are good to go';
+				button.className = 'btn btn-primary';
+				button.type = 'button';
+				
+				button.onclick = function() {
+					window.location.href="../index.html";
+				};
+
+				container.appendChild(button);
+			}
+
+			function checkFourSquare() {
+				var container = document.getElementById('foursquare');
+				if (foursquare.client_id !== '' && foursquare.client_secret !== '') {
+					container.className = '';
+					container.textContent = '';
+
+					container.className = 'alert alert-success';
+					container.textContent = 'FourSquare API keys is ready';
+					return true;
+				}
+				return false;
+			}
+
+			function checkGoogleMaps() {
+				var container = document.getElementById('google');
+				if (google_maps.api_key !== '') {
+					container.className = '';
+					container.textContent = '';
+
+					container.className = 'alert alert-success';
+					container.textContent = 'Google Maps API keys is ready'
+					return true;
+				}
+				return false;
+			}
+
+			function checkDefaultLocation() {
+				var container = document.getElementById('default-location');
+				if (google_maps.api_key !== '') {
+					container.className = '';
+					container.textContent = '';
+
+					container.className = 'alert alert-success';
+					container.textContent = 'Default Location is set'
+					return true;
+				}
+				return false;
+			}
+		</script>
+
+		<!-- Optional JavaScript -->
+		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	</body>
+</html>
