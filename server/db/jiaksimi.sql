@@ -26,8 +26,8 @@ USE `jiaksimi`;
 DROP TABLE IF EXISTS `Tag`;
 CREATE TABLE `Tag` (
   `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `tag_uid` varchar(32) NOT NULL,
-  `tag_name` varchar(255) NOT NULL
+  `tag_name` varchar(255) NOT NULL,
+  `tag_uid` varchar(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -39,7 +39,7 @@ CREATE TABLE `Tag` (
 DROP TABLE IF EXISTS `User`;
 CREATE TABLE `User` (
   `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT ,
-  `email` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `photo` longblob
@@ -95,3 +95,20 @@ CONSTRAINT FK_UserTag_2 FOREIGN KEY (`tag_id`) REFERENCES `Tag`(`id`)
 --
 INSERT INTO `User` (`id`, `email`, `password`, `name`, `photo`) VALUES 
   (1, 'admin', '$2y$10$dSUdZLhaMRilJ11BznGO3OERSr3iBTeziynFbdV505xEBx/qIafNO', 'Admin', NULL);
+
+INSERT INTO  `Tag` (`tag_name`, `tag_uid`) VALUES 
+  ('Chinese', '4bf58dd8d48988d145941735'),
+  ('Dessert', '4bf58dd8d48988d1d0941735'),
+  ('Fast Food', '4bf58dd8d48988d16e941735'),
+  ('Filipino', '4eb1bd1c3b7b55596b4a748f'),
+  ('Food Court', '4bf58dd8d48988d120951735'),
+  ('Gluten-Free', '4c2cd86ed066bed06c3c5209'),
+  ('Halal', '52e81612bcbc57f1066b79ff'),
+  ('Indian', '4bf58dd8d48988d10f941735'),
+  ('Indonesian', '4deefc054765f83613cdba6f'),
+  ('Japanese', '4bf58dd8d48988d111941735'),
+  ('Korean', '4bf58dd8d48988d113941735'),
+  ('Malay', '4bf58dd8d48988d156941735'),
+  ('Salad', '4bf58dd8d48988d1bd941735'),
+  ('Thai', '4bf58dd8d48988d149941735'),
+  ('Vegetarian','4bf58dd8d48988d1d3941735');
