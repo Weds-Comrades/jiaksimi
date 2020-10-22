@@ -13,8 +13,8 @@ SET time_zone = "+08:00";
 --
 -- Database: `jiaksimi`
 --
-
-CREATE DATABASE IF NOT EXISTS `jiaksimi` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+DROP DATABASE IF EXISTS `jiaksimi`;
+CREATE DATABASE `jiaksimi` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `jiaksimi`;
 
 -- --------------------------------------------------------
@@ -40,7 +40,7 @@ DROP TABLE IF EXISTS `User`;
 CREATE TABLE `User` (
   `id` int NOT NULL PRIMARY KEY AUTO_INCREMENT ,
   `email` varchar(255) NOT NULL,
-  `password` binary(32) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `photo` longblob
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -87,3 +87,11 @@ CONSTRAINT FK_UserTag_1 FOREIGN KEY (`user_id`) REFERENCES `User`(`id`),
 CONSTRAINT FK_UserTag_2 FOREIGN KEY (`tag_id`) REFERENCES `Tag`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+-- --------------------------------------------------------
+
+--
+-- Insert
+--
+INSERT INTO `User` (`id`, `email`, `password`, `name`, `photo`) VALUES 
+  (1, 'admin', '$2y$10$dSUdZLhaMRilJ11BznGO3OERSr3iBTeziynFbdV505xEBx/qIafNO', 'Admin', NULL);
