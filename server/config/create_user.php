@@ -5,6 +5,7 @@
  */
 
   include_once './database.php';
+  include_once '../objects/User.php';
 
   // define variables and initalise as empty
   $email = $password = $name = "";
@@ -19,36 +20,27 @@
       // INSERT INTO DATABASE
       $database = new Database();
       $db = $database->getConnection();
+      $user = new User($db);
       
-      $sql = "INSERT INTO USER (email, password, name) VALUES (:email, :password, :name)";
       $email = trim($_POST["email_input"]);
       $password = password_hash($_POST["password_input"], PASSWORD_DEFAULT); // Create a password hash
       $name = trim($_POST["name_input"]);
 
-      // print ("$username \n $password \n $name");
+      $user->setUserDetails($email, $password, $name);
     
-      $stmt = $db->prepare($sql);
-
-      $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-      $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-      $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-
-      if ($stmt->execute()) {
-        echo `
+      if ($user->saveUser()) {
+        echo "
         <div class='alert alert-success' role='alert'>
           Successfully added $email into database
         </div>
-        `;
+        ";
       } else {
-        echo `
+        echo "
           <div class='alert alert-danger' role='alert'>
             Something happened
           </div>
-        `;
+        ";
       }
-
-      unset($stmt);
-      unset($db);
     }
   }
 
@@ -63,7 +55,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   </head>
   <body>
-    <div class="container">
+    <div class="container mt-3">
       <h1>Add a User to database TEST</h1>
       <form action="<?php echo(htmlspecialchars($_SERVER["PHP_SELF"]))?>" method="post">
         <div class="form-group">
