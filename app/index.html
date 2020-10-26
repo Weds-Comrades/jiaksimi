@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Jiak Simi</title>
 
-    <!-- Load ENV files-->
+    <!-- Load necessary files-->
     <script src="./env.js"></script>
-
-    <!-- Bootstrap CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./css/shared.css">
     <link rel="stylesheet" href="./css/homepage.css">
+    <link rel="stylesheet" href="./css/card.css">
 
     
   </head>
@@ -42,8 +45,24 @@
         </div>
     </header>
 
-    <script>
-    </script>
+    <div class="container message-chevron p-3">
+        <span id="message">Food around you</span>
+        <span class="material-icons">expand_more</span>
+    </div>
+
+    <!-- Card Rows -->
+    <main class="container">
+        <div class="row"  id="card-container" >
+            <card 
+                v-for="item in venues"
+                v-bind:place="item"
+                v-bind:key="item.id"
+            ></card>
+        </div>
+    </main>
+
+    <!-- Javascript -->
+    <script src="./javascript/hompage.js"></script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

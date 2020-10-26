@@ -1,0 +1,22 @@
+.card-body {
+    padding: 12px;
+}
+
+.card-distance {
+    margin: 0;
+    font-weight: bold;
+    color: rgba(0,0,0,0.56);
+}
+
+.card-img {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 100%;
+}
+
+.card-img img {
+    position: absolute;
+    object-fit: cover;
+    height: 100%;
+    object-position: center; 
+}
