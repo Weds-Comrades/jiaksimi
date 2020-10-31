@@ -18,9 +18,6 @@ class User {
         $this->conn = $db;
     }
 
-    // do not create a JSON due to potential security issue
-    // logins should never be revealed in a public JSON
-
     // get user by email
     public function getUserByEmail($email) {
         // query to read single record
@@ -38,14 +35,19 @@ class User {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // set values to object properties
-        $this->id = $row['id'];
-        $this->email = $row['email'];
-        $this->password = $row['password'];
-        $this->name = $row['name'];
-        $this->photo_bin = $row['photo'];
+        if ($row) {
+            // echo($row['id']);
+            $this->id = $row['id'];
+            $this->email = $row['email'];
+            $this->password = $row['password'];
+            $this->name = $row['name'];
+            $this->photo_bin = $row['photo'];
 
-        $this->getTags();
-        $this->getPreferredDistance();
+            $this->getTags();
+            $this->getPreferredDistance();
+        }
+
+        return $row ? true : false;
     }
 
     // get user by id
@@ -64,15 +66,27 @@ class User {
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // set values to object properties
-        $this->id = $row['id'];
-        $this->email = $row['email'];
-        $this->password = $row['password'];
-        $this->name = $row['name'];
-        $this->photo_bin = $row['photo'];
+        if ($row) {
+            // set values to object properties
+            $this->id = $row['id'];
+            $this->email = $row['email'];
+            $this->password = $row['password'];
+            $this->name = $row['name'];
+            $this->photo_bin = $row['photo'];
 
-        $this->getTags();
-        $this->getPreferredDistance();
+            $this->getTags();
+            $this->getPreferredDistance();
+        }
+
+        return $row ? true : false;
+    }
+
+    // get user information
+    public function getUserInformation() {
+        return array(
+            "email" => $this->email,
+            "name" => $this->name,
+        );
     }
 
     // get user_distance by id
@@ -99,14 +113,12 @@ class User {
         // query to read single record
         $query = "
             SELECT * FROM User_Tag
-            WHERE user_id = ?
+            WHERE user_id = $this->id
         ";
 
         // prepare query and execute
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->id);
         $stmt->execute();
-        $stmt->getAll();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             // extract row
@@ -114,6 +126,7 @@ class User {
             extract($row);
             array_push($this->filter_tags, $tag_id);
         }
+
     }
 
     // get all user_favourite locations by id
@@ -121,14 +134,12 @@ class User {
         // query to read single record
         $query = "
             SELECT * FROM User_Favourite
-            WHERE user_id = ?
+            WHERE user_id = $this->id
         ";
 
         // prepare query and execute
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $this->id);
         $stmt->execute();
-        $stmt->getAll();
         $locations = array();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
