@@ -38,7 +38,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (!$user->isPasswordMatch($password)) {
         echo "Invalid password";
       } else {
-        $_SESSION["user"] = $user;
+        $response_array = array();
+        $locations = $user->getFavouriteLocations();
+        $response_array['user'] = $user->getUserInformation();
+        $response_array['filter'] = $user->getUserFilterSettings();
+        $response_array['locations'] = count($locations) > 0 ? $location : $filter_defaults;
+
+        $_SESSION["user"] = $response_array;
         header('Location: ../api/get-user-details.php');
       }
     }
