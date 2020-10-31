@@ -4,11 +4,11 @@ Vue.component('card', {
     <div class="col-md-4 my-2">
         <div class="card">
             <div class="card-img">
-                <img src='./images/bg-sg.jpg' class="card-img-top img-fluid">
+                <img v-bind:src="place.photo"  class="card-img-top img-fluid">
             </div>
             <div class="card-body">
                 <h6 class="card-title">{{ place.name }}</h6>
-                <p class="card-distance">{{ place.location.distance }}m</p>
+                <p class="card-distance">{{ place.distance }}m</p>
             </div>
         </div>
     </div>
@@ -21,25 +21,37 @@ var card_container = new Vue({
     data: {
         venues: [],
     },
-    created: async function () {
-        function getVenues(pos) {
+    mounted: function () {
+        async function getVenues(pos) {
             // connect to the foursquare api
-            // var obj = this;
             const currentLocation = pos
             var radius = 500;
             var limit = 4;
             const url = `https://api.foursquare.com/v2/venues/search?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20201020&ll=${currentLocation.lat},${currentLocation.long}&radius=${radius}&limit=${limit}&categoryId=4d4b7105d754a06374d81259`
-            
-            console.log(pos);
 
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    obj.venues = JSON.parse(this.responseText).response.venues;
-                }
+            // loop through get important data & image
+            var venues = await axios.get(url)
+                .then(response => {
+                    return response.data.response.venues;  
+                });
+           
+            // get images
+            for (const venue of venues) {
+                const url_venue_details = `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`
+                var photo = await axios.get(url_venue_details)
+                    .then(response => {
+                        var photo_raw = response.data.response.venue.bestPhoto;
+                        return photo_raw.prefix + 'cap300' + photo_raw.suffix;
+                    });
+
+                // push to array
+                obj.venues.push({
+                    id: venue.id,
+                    name: venue.name,
+                    distance: venue.location.distance,
+                    photo: photo,
+                });
             }
-            xhr.open("GET", url, false);
-            xhr.send();
         }
 
         function success(position) {
@@ -54,7 +66,7 @@ var card_container = new Vue({
             getVenues(default_location);
         }
 
-        // main
+        // main method
         var obj = this;
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success, failure, {enableHighAccuracy:true, timeout:15000, maximumAge:30000})
@@ -64,4 +76,3 @@ var card_container = new Vue({
         }
     },
 });
-// getLocationNearby();
