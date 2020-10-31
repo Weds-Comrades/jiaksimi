@@ -17,15 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = trim($_POST["password_input"]);
     // echo ("$email  $password\n");
 
-    
     // Verify user
     $database = new Database();
     $db = $database->getConnection();
     $user = new User($db);
-    // $test = $user->getUserByEmail($email);
-    // var_dump($user);
-
-
     
     // user not found
     if (!$user->getUserByEmail($email)) {
@@ -34,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
       // verify password
       // no matchy
-      
       if (!$user->isPasswordMatch($password)) {
         echo "Invalid password";
       } else {
@@ -49,8 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       }
     }
   }
-
-
 }
 
 
