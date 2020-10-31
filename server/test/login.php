@@ -33,10 +33,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Invalid password";
       } else {
         $response_array = array();
-        $locations = $user->getFavouriteLocations();
+
         $response_array['user'] = $user->getUserInformation();
         $response_array['filter'] = $user->getUserFilterSettings();
-        $response_array['locations'] = count($locations) > 0 ? $location : $filter_defaults;
+        $response_array['locations'] = $user->getFavouriteLocations();
 
         $_SESSION["user"] = $response_array;
         header('Location: ../api/get-user-details.php');
@@ -44,8 +44,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
   }
 }
-
-
 ?>
 
 <!DOCTYPE html>
