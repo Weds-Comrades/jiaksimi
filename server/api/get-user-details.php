@@ -13,11 +13,6 @@ header("Content-Type: application/json; charset=UTF-8");
 // required clases
 include_once '../objects/User.php';
 
-$filter_defaults = array(
-    "distance" => "500",
-    "tags" => "1",
-);
-
 // if user session dont exist 
 if (!isset($_SESSION['user'])) {
     http_response_code(404);

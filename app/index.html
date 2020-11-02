@@ -21,49 +21,79 @@
     
   </head>
   <body>
+    <main id="main">
 
-    <div class="header-image"></div>
+        <div class="header-image"></div>
 
-    <header class="container header-container">
-        <div class="search-container">
-            <div class="title">
-                <span class="title-bold">Jiak</span><span>Simi</span>
+        <!-- search bar -->
+        <header class="container header-container">
+            <div class="search-container" id="search-container">
+                <div class="title">
+                    <span class="title-bold">Jiak</span><span>Simi</span>
+                </div>
+
+            <div class="search">
+                    <input id="search-bar" type="text" placeholder="Search for a place">
+                    <button id="btn-filter" class="search-button" data-toggle="collapse" data-target="#search-settings" aria-expanded="false">
+                        <span class="material-icons">
+                            tune
+                        </span>
+                    </button>
+                    <button id="btn-search" class="search-button">
+                        <span class="material-icons">
+                            search
+                        </span>
+                    </button>
             </div>
 
-           <div class="search">
-                <input id="search-bar" type="text" placeholder="Search for a place">
-                <button id="btn-filter" class="search-button">
-                    <span class="material-icons">
-                        tune
-                    </span>
-                </button>
-                <button id="btn-search" class="search-button">
-                    <span class="material-icons">
-                        search
-                    </span>
-                </button>
-           </div>
+            <!-- Modal Filter Settings -->
+                <div class="collapse mt-2" id="search-settings">
+                    <div class="card card-body">
+                        <h5>Filter Settings</h5>
+
+                        <!-- Forms -->
+                        <form>
+                            <div class="form-group">
+                                <label for="distanceDDL">Distance (m)</label>
+                                <select class="form-control" v-model="radius">
+                                    <option v-for="item in filter_distance_list" :selected="item == radius ? true : false">
+                                        {{item}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-check">
+                                <label for="tagsChecklist">Tags</label></form></br>
+                                <div class="tagCheck">
+                                    <input type="checkbox" value="1"><span>red</span>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="container message-chevron p-3">
+            <span id="message">Food around you</span>
+            <span class="material-icons">expand_more</span>
         </div>
-    </header>
 
-    <div class="container message-chevron p-3">
-        <span id="message">Food around you</span>
-        <span class="material-icons">expand_more</span>
-    </div>
-
-    <!-- Card Rows -->
-    <main class="container">
-        <div class="row"  id="card-container" >
-            <card 
-                v-for="item in venues"
-                v-bind:place="item"
-                v-bind:key="item.id"
-            ></card>
+        <!-- Card Rows -->
+        <div class="container">
+            <div class="row">
+                <card 
+                    v-for="item in venues"
+                    v-bind:place="item"
+                    v-bind:key="item.id"
+                ></card>
+            </div>
         </div>
     </main>
 
     <!-- Javascript -->
-    <script src="./javascript/hompage.js"></script>
+    <script src="./javascript/homepage.js"></script>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
