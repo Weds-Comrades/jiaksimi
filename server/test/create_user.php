@@ -4,7 +4,7 @@
  *  A simple form as this is just use for dev purposes only
  */
 
-  include_once './database.php';
+  include_once '../config/database.php';
   include_once '../objects/User.php';
 
   // define variables and initalise as empty

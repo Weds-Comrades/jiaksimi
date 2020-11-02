@@ -6,19 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Jiak Simi</title>
 
-    <!-- Load ENV files-->
+    <!-- Load necessary files-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./env.js"></script>
-
-    <!-- Bootstrap CSS -->
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./css/shared.css">
+    <link rel="stylesheet" href="./css/homepage.css">
+    <link rel="stylesheet" href="./css/card.css">
 
     
   </head>
   <body>
-    <h1>Hello, world!</h1>
+    <main id="main">
 
-    <script>
-    </script>
+        <div class="header-image"></div>
+
+        <!-- search bar -->
+        <header class="container header-container">
+            <div class="search-container" id="search-container">
+                <div class="title">
+                    <span class="title-bold">Jiak</span><span>Simi</span>
+                </div>
+
+            <div class="search">
+                    <input id="search-bar" type="text" placeholder="Search for a place">
+                    <button id="btn-filter" class="search-button" data-toggle="collapse" data-target="#search-settings" aria-expanded="false">
+                        <span class="material-icons">
+                            tune
+                        </span>
+                    </button>
+                    <button id="btn-search" class="search-button">
+                        <span class="material-icons">
+                            search
+                        </span>
+                    </button>
+            </div>
+
+            <!-- Modal Filter Settings -->
+                <div class="collapse mt-2" id="search-settings">
+                    <div class="card card-body">
+                        <h5>Filter Settings</h5>
+
+                        <!-- Forms -->
+                        <form>
+                            <div class="form-group">
+                                <label for="distanceDDL">Distance (m)</label>
+                                <select class="form-control" v-model="radius">
+                                    <option v-for="item in filter_distance_list" :selected="item == radius ? true : false">
+                                        {{item}}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="form-check">
+                                <label for="tagsChecklist">Tags</label></form></br>
+                                <div class="tagCheck">
+                                    <input type="checkbox" value="1"><span>red</span>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="container message-chevron p-3">
+            <span id="message">Food around you</span>
+            <span class="material-icons">expand_more</span>
+        </div>
+
+        <!-- Card Rows -->
+        <div class="container">
+            <div class="row">
+                <card 
+                    v-for="item in venues"
+                    v-bind:place="item"
+                    v-bind:key="item.id"
+                ></card>
+            </div>
+        </div>
+    </main>
+
+    <!-- Javascript -->
+    <script src="./javascript/homepage.js"></script>
+    <script src="./javascript/components/card.js"></script>
+
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
