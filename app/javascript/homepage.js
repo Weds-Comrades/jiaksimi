@@ -85,6 +85,7 @@ var main = new Vue({
                     name: venue.name,
                     distance: venue.location.distance,
                     photo: photo,
+                    url: `./map.html?id=${venue.id}&distance=${venue.location.distance}&lat=${this.currentPos.lat}&lng=${this.currentPos.lng}`,
                 });
             }
             this.venues = fetch_venue;
