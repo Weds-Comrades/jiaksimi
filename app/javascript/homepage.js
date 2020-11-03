@@ -115,6 +115,13 @@ var main = new Vue({
                 .then(res => {
                     this.system_tags = res.data.records
                 }).catch(err => { console.log(err);});
-        }
-    }
+        },
+    },
+    computed: {
+        // change filter button color
+        filterBtnColor: function() {
+            let color = this.is_filter_card_active ? ' #007bff': "#000000";
+            return `color:${color}`;
+        },
+    },
 });
