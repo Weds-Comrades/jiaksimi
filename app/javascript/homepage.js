@@ -23,6 +23,7 @@ var main = new Vue({
 
     },
     mounted: async function () {
+        await this.getAllTags();
         await this.getUserInfo();
         await this.getCurrentLocation()
             .then(position => {
@@ -72,12 +73,15 @@ var main = new Vue({
            
             // get images
             for (const venue of venues) {
-                const url_venue_details = `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`
-                var photo = await axios.get(url_venue_details)
-                    .then(response => {
-                        var photo_raw = response.data.response.venue.bestPhoto;
-                        return photo_raw.prefix + 'cap300' + photo_raw.suffix;
-                    });
+                // const url_venue_details = `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`
+                // var photo = await axios.get(url_venue_details)
+                //     .then(response => {
+                //         var photo_raw = response.data.response.venue.bestPhoto;
+                //         return photo_raw.prefix + 'cap300' + photo_raw.suffix;
+                //     });
+
+                // dev purpose
+                var photo = "./images/bg-sg.jpg";
 
                 // push to array
                 fetch_venue.push({
@@ -108,8 +112,9 @@ var main = new Vue({
         // fetches all available tags in the server
         getAllTags: async function() {
             await axios.get('../server/api/get-tags.php')
-                .then(res => this.system_tags = res.data.records)
-                .catch(err => { console.log(err);});
+                .then(res => {
+                    this.system_tags = res.data.records
+                }).catch(err => { console.log(err);});
         }
     }
 });
