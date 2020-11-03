@@ -61,6 +61,7 @@ var main = new Vue({
 
         // call foursquare api and update venues
         getVenues: async function() {
+            this.is_venue_loaded = false;
             var fetch_venue = [];
             var user_tags = this.user_tags.length == 0 ? [this.default_tag] : this.user_tags;
             const url = `https://api.foursquare.com/v2/venues/search?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20201020&ll=${this.currentPos.lat},${this.currentPos.lng}&radius=${this.radius}&limit=${this.limit}&categoryId=${user_tags.toString()}`;
@@ -73,15 +74,21 @@ var main = new Vue({
            
             // get images
             for (const venue of venues) {
-                // const url_venue_details = `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`
-                // var photo = await axios.get(url_venue_details)
-                //     .then(response => {
-                //         var photo_raw = response.data.response.venue.bestPhoto;
-                //         return photo_raw.prefix + 'cap300' + photo_raw.suffix;
-                //     });
+                const url_venue_details = `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`
+                var photo = await axios.get(url_venue_details)
+                    .then(response => {
+                        if (response.data.response.venue.bestPhoto !== undefined) {
+                            var photo_raw = response.data.response.venue.bestPhoto;
+                            return photo_raw.prefix + 'cap300' + photo_raw.suffix;
+                        } else {
+                            var photo_raw = response.data.response.venue.categories[0].icon;
+                            console.log(response.data.response.venue.categories)
+                            return photo_raw.prefix + '512' + photo_raw.suffix;
+                        }
+                    });
 
                 // dev purpose
-                var photo = "./images/bg-sg.jpg";
+                // var photo = "./images/bg-sg.jpg";
 
                 // push to array
                 fetch_venue.push({

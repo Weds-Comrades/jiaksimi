@@ -32,12 +32,12 @@
 
             <div class="search">
                     <input id="search-bar" type="text" placeholder="Search for a place">
-                    <button id="btn-filter" class="search-button" data-toggle="collapse" data-target="#search-settings" aria-expanded="false">
-                        <span class="material-icons" :style="filterBtnColor" v-on:click="is_filter_card_active = !is_filter_card_active">
+                    <button id="btn-filter" class="search-button" data-toggle="collapse" data-target="#search-settings" aria-expanded="false" v-on:click="is_filter_card_active = !is_filter_card_active">
+                        <span class="material-icons" :style="filterBtnColor">
                             tune
                         </span>
                     </button>
-                    <button id="btn-search" class="search-button">
+                    <button id="btn-search" class="search-button" v-on:click="getVenues()">
                         <span class="material-icons">
                             search
                         </span>
