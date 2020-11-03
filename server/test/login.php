@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION["user"] = $response_array;
         header('Location: ../api/get-user-details.php');
+        exit();
       }
     }
   }
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <form action="<?php echo(htmlspecialchars($_SERVER["PHP_SELF"]))?>" method="post">
         <div class="form-group">
             <label for="email-input">Email address</label>
-            <input name="email_input" type="text" class="form-control" id="email-input" aria-describedby="emailHelp">
+            <input name="email_input" type="text" class="form-control" id="email-input" aria-describedby="emailHelp" required>
           </div>
           <div class="form-group">
             <label for="password-input">Password</label>
