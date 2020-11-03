@@ -1,17 +1,10 @@
-.header-image {
-    height: 80vh;
-    width: 100%;
-    min-height: 400px;
-    background-image: url('../images/bg-sg.jpg');
+body {
+    background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.7)), url('../images/bg-sg.jpg');
     background-size: cover;
-    background-position: center;
+    /* background-position: center; */
     background-repeat: no-repeat;
-    filter: brightness(40%);
-
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    z-index: -1;
+    background-attachment: fixed;
+    background-blend-mode: darken;
 }
 
 .header-container {
@@ -96,8 +89,7 @@ input.check-button + label:active, input.check-button:checked + label {
     color: #FFFFFF;
 }
 
-
-#search-bar{
+#search-bar {
   border: 0;  
   outline: 0;
   height: 100%;
