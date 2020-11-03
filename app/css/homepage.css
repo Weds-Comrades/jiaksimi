@@ -23,9 +23,7 @@
     margin: 0 auto;
     max-width: 750px;
     height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding-top: 10%;
 }
 
 .title {
@@ -33,6 +31,7 @@
     font-size: 2.5em;
     text-align: center;
     margin-bottom: 24px;
+    letter-spacing: 0.1em;
 }
 
 .title-bold {
@@ -69,7 +68,33 @@
     justify-content: center;
 }
 
+.form-check {
+    padding-left: 0;
+}
 
+/* Filter Checklists */
+.tags-checklist {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+input.check-button {
+    display: none;
+} 
+
+input.check-button + label {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #EFEFEF;
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: rgba(0,0,0,0.87);
+    margin-right: 10px;
+}
+
+input.check-button + label:active, input.check-button:checked + label {
+    background: #007bff;
+    color: #FFFFFF;
+}
 
 
 #search-bar{
@@ -78,4 +103,9 @@
   height: 100%;
   flex-grow: 1;
   font-size: 16px;
+}
+
+#search-settings .card {
+    z-index: 1;
+    border-radius: 8px;
 }

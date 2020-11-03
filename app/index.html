@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="./css/homepage.css">
     <link rel="stylesheet" href="./css/card.css">
 
-    
+
   </head>
   <body>
     <main id="main">
@@ -61,12 +61,17 @@
                                     </option>
                                 </select>
                             </div>
+
                             <div class="form-check">
-                                <label for="tagsChecklist">Tags</label></form></br>
-                                <div class="tagCheck">
-                                    <input type="checkbox" value="1"><span>red</span>
+                                <label for="tagsLabel">Tags</label></form></br>
+                                <div class="tags-checklist">
+                                    <div class="tagCheck" v-for="tag in system_tags">
+                                        <input :id="tag.uid" type="checkbox" :value="tag.uid" class="check-button" v-model="user_tags" :checked="user_tags.includes(tag.uid)">
+                                        <label :for="tag.uid">{{tag.name}}</label>
+                                    </div>
                                 </div>
                             </div>
+                            
                         </form>
 
                     </div>
