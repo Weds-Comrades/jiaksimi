@@ -33,7 +33,7 @@
             <div class="search">
                     <input id="search-bar" type="text" placeholder="Search for a place">
                     <button id="btn-filter" class="search-button" data-toggle="collapse" data-target="#search-settings" aria-expanded="false">
-                        <span class="material-icons">
+                        <span class="material-icons" :style="filterBtnColor" v-on:click="is_filter_card_active = !is_filter_card_active">
                             tune
                         </span>
                     </button>
@@ -47,7 +47,7 @@
             <!-- Modal Filter Settings -->
                 <div class="collapse mt-2" id="search-settings">
                     <div class="card card-body">
-                        <h5>Filter Settings</h5>
+                        <h4>Filter Settings</h4>
 
                         <!-- Forms -->
                         <form>
@@ -69,8 +69,9 @@
                                     </div>
                                 </div>
                             </div>
-
                         </form>
+
+                        <!-- Save button -->
 
                     </div>
                 </div>
