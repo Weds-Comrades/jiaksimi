@@ -29,7 +29,7 @@ if (isset($_POST['user'])) {
     $password = password_hash($new_user["password"], PASSWORD_DEFAULT); // Create a password hash
     $name = $new_user['name'];
 
-    $user->setUserDetails($email, $password, $name);
+    $user->setUserDetails($email, $name, $password);
 
     if ($user->saveUser()) {
         $response_array = array();
