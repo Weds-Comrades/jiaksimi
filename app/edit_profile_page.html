@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Custom JavaScript -->
+    <script src="main.js"></script>
+        
+    <style>
+        body {  
+            background-color: #E5E5E5; 
+        }
+
+    </style>
+    <title>Edit Profile</title>
+</head>
+<body>
+
+    <!-- <div class="container">
+        <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' name="imageUpload" id="imageUpload" accept=".png, .jpg, .jpeg" />
+                    <label for="imageUpload"></label>
+                </div>
+                <div class="avatar-preview">
+                    <div id="imagePreview" style="background-image: url(
+                        'images/user.png')";>
+                    </div>
+                </div>
+        </div>
+    </div> -->
+
+    <div class="container"> 
+        <div class="row"> 
+            <div class="col"></div> 
+            <div class="col-6"> 
+                <form action="update_user.php" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <div class="avatar-upload">
+                            <div class="avatar-edit">
+                                <input type='file' name="photo" id="photo" accept=".png, .jpg, .jpeg" />
+                                <label for="photo"></label>
+                            </div>
+                            <div class="avatar-preview">
+                                <div id="imagePreview" style="background-image: url(
+                                    'images/user.png')";>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name_input" name="name_input" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email_input" name="email_input" placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">New Password</label>
+                        <input type="password" class="form-control" id="password_input" name="password_input" placeholder="Password">
+                    </div>
+                    <div class="form-group" id="last_input">
+                        <label for="cpassword">Confirm Password</label>
+                        <input type="password" class="form-control" id="cpassword" name="cpassword" placeholder="Confirm Password">
+                    </div>
+                    <br>
+                    <div id="alertmsg"></div>
+
+                    <div class="text-center">
+                        <button name="submit" type="submit" class="btn btn-secondary" onclick="return checkPassword(this)">Save</button>
+                        <button name="cancel" value="cancel" onclick="window.location='profile_page.html';" class="btn btn-secondary">Cancel</button>
+                    </div>
+                    
+                </form>
+            </div>
+            <div class="col"></div>     
+        </div> 
+    </div>
+
+    <script>
+        function readURL(input) {
+            console.log("js");
+            if (input.files && input.files[0]) {
+                console.log("reached");
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                    $('#imagePreview').hide();
+                    $('#imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $("#photo").change(function() {
+            readURL(this);
+        });
+
+        function checkPassword(form) { 
+                // alert("reached");
+                password1 = this.password_input.value; 
+                password2 = this.cpassword.value; 
+                let alertmsg = document.getElementById("alertmsg");
+                
+                if (password1 != password2) { 
+                    document.getElementById("cpassword").value = '';
+                    alertmsg.innerHTML = `<div class="alert alert-danger" role="alert">New Password and Confirm Password must match!</div>`;
+                    return false; 
+                } 
+  
+                // If same return True. 
+                else { 
+                    // alertmsg.innerHTML = `<div class="alert alert-success" role="alert">Change was made successfully</div>`;
+                    alertmsg.innerHTML = "";
+                    return true; 
+                } 
+            }
+    </script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
