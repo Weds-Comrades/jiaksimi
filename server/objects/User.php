@@ -217,6 +217,42 @@ class User {
         );
     }
 
+    // update user details
+    public function updateDetails($id, $email, $password, $name, $photo) {
+        // STEP 1
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "UPDATE
+                    user
+                SET
+                    'email' = ':email',
+                    'password' = ':password',
+                    'name' = ':name',
+                    'photo' = ':photo'
+                WHERE 
+                    id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+        $stmt->bindParam(':photo', $photo, PDO::PARAM_STR);
+
+
+        // STEP 3
+        if( $stmt->execute() ) {
+            // STEP 4
+            $stmt = null;
+            $conn = null;
+            return true;
+        }
+
+        // STEP 4
+        return false;
+        }
+
     /* 
      * verify password input with hash
      * assume that password is saved in Object already
