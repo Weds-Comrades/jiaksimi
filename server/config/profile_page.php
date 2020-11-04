@@ -31,11 +31,11 @@ $user = $dao->getUserById($id);
                     <form>
                         <div class='form-group'>
                             <label for='name'>Name</label>
-                            <input type='text' class='form-control' id='name_input' name='name_input' placeholder='{$user->name}'>
+                            <input type='text' class='form-control' id='name_input' name='name_input' placeholder='{$user->name}' disabled='disabled'>
                         </div>
                         <div class='form-group'>
                             <label for='email'>Email</label>
-                            <input type='text' class='form-control' id='email_input' name='email_input' placeholder='{$user->email}'>
+                            <input type='text' class='form-control' id='email_input' name='email_input' placeholder='{$user->email}' disabled='disabled'>
                         </div>
 
                         <div class='text-center'>
