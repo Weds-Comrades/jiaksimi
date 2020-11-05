@@ -8,9 +8,8 @@ var main = new Vue({
 
         // required for foursquare apis
         currentPos: default_location,
-        radius: 500,
+        radius: default_filter.radius,
         user_tags: [],
-        default_tag: '4d4b7105d754a06374d81259',
 
         // filters
         filter_distance_list: [50, 100, 500, 1000],
@@ -64,7 +63,7 @@ var main = new Vue({
         getVenues: async function() {
             this.is_venue_loaded = false;
             var fetch_venue = [];
-            var user_tags = this.user_tags.length == 0 ? [this.default_tag] : this.user_tags;
+            var user_tags = this.user_tags.length === 0 ? [default_filter.uid_tag] : this.user_tags;
             var query = this.query.length !== 0 ? `&query=${this.query}` : '';
             const url = `https://api.foursquare.com/v2/venues/search?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20201020&ll=${this.currentPos.lat},${this.currentPos.lng}&radius=${this.radius}&limit=${this.limit}&categoryId=${user_tags.toString()}${query}`;
 
@@ -111,7 +110,7 @@ var main = new Vue({
                 .then((res => {
                     var user = res.data; 
                     this.is_user_login = true;
-                    this.radius = user.filter.distance != 0 ? user.filter.distance : this.radius;
+                    this.radius = user.filter.distance != 0 ? user.filter.distance : default_filter.radius;
                     this.user_tags = user.filter.tags;
                 }))
                 .catch(err => { console.log(err); });

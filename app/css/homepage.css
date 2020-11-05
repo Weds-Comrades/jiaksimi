@@ -8,7 +8,7 @@ body {
 }
 
 .header-container {
-    height: 55vh;
+    height: 50vh;
     min-height: 200px;
 }
 
@@ -16,7 +16,7 @@ body {
     margin: 0 auto;
     max-width: 750px;
     height: 100%;
-    padding-top: 10%;
+    padding-top: 150px;
 }
 
 .title {
@@ -126,3 +126,6 @@ input.check-button + label:active, input.check-button:checked + label {
     width: 100%;
     text-align: center;
 }
+
+
+/* mobile friendliness */
