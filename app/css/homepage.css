@@ -121,3 +121,8 @@ input.check-button + label:active, input.check-button:checked + label {
 #main {
     margin-bottom: 24px;
 }
+
+#warning .alert{
+    width: 100%;
+    text-align: center;
+}

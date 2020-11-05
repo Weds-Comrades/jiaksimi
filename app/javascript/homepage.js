@@ -84,7 +84,6 @@ var main = new Vue({
                             return photo_raw.prefix + 'cap300' + photo_raw.suffix;
                         } else {
                             var photo_raw = response.data.response.venue.categories[0].icon;
-                            console.log(response.data.response.venue.categories)
                             return photo_raw.prefix + '512' + photo_raw.suffix;
                         }
                     });

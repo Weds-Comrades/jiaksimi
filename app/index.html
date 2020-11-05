@@ -16,6 +16,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./css/shared.css">
     <link rel="stylesheet" href="./css/homepage.css">
+    <link rel="stylesheet" href="./css/spinner.css">
     <link rel="stylesheet" href="./css/card.css">
 
 
@@ -98,14 +99,24 @@
         </div>
 
         <!-- Card Rows -->
-        <div class="container">
-            <div class="row">
+        <div class="container" v-if="is_venue_loaded">
+            <div class="row" v-if="venues.length > 0">
                 <card 
                     v-for="item in venues"
                     v-bind:place="item"
                     v-bind:key="item.id"
                 ></card>
             </div>
+            <div class="row" id="warning" v-else>
+                <div class="alert alert-warning" role='alert'>
+                    &#9888; No places found &#9888;
+                </div>
+            </div>
+        </div>
+
+        <!-- Spinner -->
+        <div class="container spinner" v-else>
+
         </div>
     </main>
 
