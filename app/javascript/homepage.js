@@ -136,8 +136,14 @@ var main = new Vue({
         // save filter settings for signed in user
         // 1. update databases
         saveFilter: async function() {
-            
-        }
+
+        },
+
+        // reset defualts of filters
+        resetFilter: async function() {
+            this.user_tags = [];
+            this.radius = 500;
+        },
     },
     computed: {
         // change filter button color
