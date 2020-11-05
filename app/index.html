@@ -31,7 +31,11 @@
                 </div>
 
             <div class="search">
-                <input id="search-bar" type="search" placeholder="Search for a place">
+                <input id="search-bar" type="search"
+                    placeholder="Search for a place"
+                    v-model.trim="query"
+                    v-on:keyup.enter="search"
+                >
                 <button id="btn-filter" class="filter-button"
                     :class="{'btn-active': is_filter_card_active }"
                     data-toggle="collapse"
@@ -43,7 +47,10 @@
                         tune
                     </span>
                 </button>
-                <input type='submit' id="btn-search" class="btn btn-primary filter-button" v-on:click="search" value="Search"/>
+                <input type='submit' id="btn-search"
+                    class="btn btn-primary filter-button"
+                    v-on:click="search" value="Search"
+                />
             </div>
 
             <!-- Modal Filter Settings -->

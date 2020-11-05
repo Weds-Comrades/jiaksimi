@@ -65,14 +65,15 @@ var main = new Vue({
             this.is_venue_loaded = false;
             var fetch_venue = [];
             var user_tags = this.user_tags.length == 0 ? [this.default_tag] : this.user_tags;
-            const url = `https://api.foursquare.com/v2/venues/search?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20201020&ll=${this.currentPos.lat},${this.currentPos.lng}&radius=${this.radius}&limit=${this.limit}&categoryId=${user_tags.toString()}`;
+            var query = this.query.length !== 0 ? `&query=${this.query}` : '';
+            const url = `https://api.foursquare.com/v2/venues/search?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20201020&ll=${this.currentPos.lat},${this.currentPos.lng}&radius=${this.radius}&limit=${this.limit}&categoryId=${user_tags.toString()}${query}`;
 
             // loop through get important data & image
             var venues = await axios.get(url)
                 .then(response => {
                     return response.data.response.venues;  
                 });
-           
+
             // get images
             for (const venue of venues) {
                 const url_venue_details = `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`
