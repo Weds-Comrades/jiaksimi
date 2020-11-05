@@ -31,23 +31,19 @@
                 </div>
 
             <div class="search">
-                    <input id="search-bar" type="search" placeholder="Search for a place">
-                    <button id="btn-filter" class="search-button"
-                        :class="{'btn-active': is_filter_card_active }"
-                        data-toggle="collapse"
-                        data-target="#search-settings"
-                        aria-expanded="false"
-                        v-on:click="is_filter_card_active = !is_filter_card_active"
-                    >
-                        <span class="material-icons">
-                            tune
-                        </span>
-                    </button>
-                    <button id="btn-search" class="search-button" v-on:click="search">
-                        <span class="material-icons">
-                            search
-                        </span>
-                    </button>
+                <input id="search-bar" type="search" placeholder="Search for a place">
+                <button id="btn-filter" class="filter-button"
+                    :class="{'btn-active': is_filter_card_active }"
+                    data-toggle="collapse"
+                    data-target="#search-settings"
+                    aria-expanded="false"
+                    v-on:click="is_filter_card_active = !is_filter_card_active"
+                >
+                    <span class="material-icons">
+                        tune
+                    </span>
+                </button>
+                <input type='submit' id="btn-search" class="btn btn-primary filter-button" v-on:click="search" value="Search"/>
             </div>
 
             <!-- Modal Filter Settings -->

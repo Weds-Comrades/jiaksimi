@@ -4,6 +4,12 @@
     color: rgba(0,0,0,0.87);
 }
 
+.card-body h6{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .card-distance {
     margin: 0;
     font-weight: bold;
