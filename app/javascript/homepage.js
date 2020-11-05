@@ -15,6 +15,7 @@ var main = new Vue({
         // filters
         filter_distance_list: [50, 100, 500, 1000],
         system_tags: [],
+        query: '',
 
         // booleans
         is_venue_loaded: false,
@@ -123,6 +124,20 @@ var main = new Vue({
                     this.system_tags = res.data.records
                 }).catch(err => { console.log(err);});
         },
+
+        // closes filter and calls getVenues when search btn is pressed
+        search: async function() {
+            // bootstrap collapse function
+            $('#search-settings').collapse('hide');
+            this.is_filter_card_active = false;
+            await this.getVenues();
+        },
+
+        // save filter settings for signed in user
+        // 1. update databases
+        saveFilter: async function() {
+            
+        }
     },
     computed: {
         // change filter button color
