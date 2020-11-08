@@ -21,6 +21,15 @@ var main = new Vue({
         is_user_login: false,
         is_filter_card_active: false,
 
+        // links for navbar
+        links: {
+            'home': './',
+            'favourites': '#',
+            'settings': '#',
+            'logout': '../server/test/logout.php',
+            'split': '#',
+        },
+
     },
     mounted: async function () {
         await this.getAllTags();

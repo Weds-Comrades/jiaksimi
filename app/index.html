@@ -26,7 +26,10 @@
   <body>
     <main id="main">
         
-        <navbar v-bind:is-login="is_user_login"></navbar>
+        <navbar
+            v-bind:is-login="is_user_login"
+            v-bind:links="links"
+        ></navbar>
 
         <!-- search bar -->
         <header class="container header-container">
