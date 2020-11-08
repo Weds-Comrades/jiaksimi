@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Update Favourite(DEV ONLY)</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container mt-3">
+        <h1>Add a User to database TEST</h1>
+
+        <div class="form-group">
+            <label for="favourite-input">Favourite UID</label>
+            <input name="favourite-input" type="text" class="form-control" id="favourite-input" aria-describedby="favouriteHelp" required>
+        </div>
+
+        <button type="button" class="btn btn-primary" id="add-btn">Update Favourite</button>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('add-btn').addEventListener('click', updateFav);
+
+        function updateFav() {
+            const place_id = document.getElementById('favourite-input').value.trim();
+
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    clear();
+
+                    document.getElementById('message').textContent = JSON.parse(this.responseText).message;
+                }
+                else {
+                    console.log(this.responseText);
+                }
+            };
+            xhr.open("POST", "../api/update-favourites.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("place_id=" + place_id);
+        }
+
+        function clear() {
+            document.getElementById('favourite-input').value = "";
+            document.getElementById('message').textContent = "";
+        }
+
+    </script>
+
+</body>
+</html>
