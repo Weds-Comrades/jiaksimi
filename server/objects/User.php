@@ -129,7 +129,7 @@ class User {
 
     }
 
-    // get all user_favourite locations by id
+    // get all user_favourite locations
     public function getFavouriteLocations() {
         // query to read single record
         $query = "
@@ -150,6 +150,52 @@ class User {
         }
 
         return $locations;
+    }
+
+    // check if location is favourited, return true or false
+    public function isLocationFavourite($place_id) {
+        // query check if $place_id exist
+        $query =  "SELECT * FROM User_Favourite
+            WHERE user_id = :id AND places_id = :uid
+            LIMIT 0,1
+        ";
+
+        $data = [
+            'id' => $this->id,
+            'uid' => $place_id,
+        ];
+
+        // prepare query and execute
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute($data);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ? true : false;
+    }
+
+    // add user favourite record to database
+    public function addFavouriteLocation($place_id) {
+        $query = " INSERT INTO User_Favourite (user_id, places_id) VALUES (:id, :uid)";
+        $data = [
+            "id" => $this->id,
+            "uid" => $place_id,
+        ];
+
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute($data);
+    }
+
+    // remove user favourite record to database
+    public function removeFavouriteLocation($place_id) {
+        $query = "DELETE FROM User_Favourite 
+            WHERE user_id = :id AND places_id = :uid
+        ";
+        $data = [
+            "id" => $this->id,
+            "uid" => $place_id,
+        ];
+
+        $stmt = $this->conn->prepare($query);
+        return $stmt->execute($data);
     }
 
     // return user details
@@ -269,6 +315,5 @@ class User {
         
         return $saveFilters;
     }
-
 }  
 ?>

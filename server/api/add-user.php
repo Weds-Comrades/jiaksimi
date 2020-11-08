@@ -12,8 +12,6 @@ session_start();
 include_once '../objects/User.php';
 include_once '../config/database.php';
 
-$url = $_SERVER['HTTP_REFERER'];
-
 
 // assume all fields are sent
 // no verification required
