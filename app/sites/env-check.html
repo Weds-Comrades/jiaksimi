@@ -14,7 +14,7 @@
 	<body>
 		<div class="jumbotron jumbotron-fluid">
 			<div class="container-fluid d-flex flex-column">
-				<h1 class="display-4">If all alerts are green, you have sucessfully added your api-keys</h1>
+				<h1 class="display-4">If all alerts are green, you have successfully added your api-keys</h1>
 				<p>Otherwise, ensure <kbd>/app/env.js</kbd> values are filled up</p>
 			</div>
 
@@ -24,7 +24,7 @@
 					FourSquare API keys are missing
 				</div>
 				<div class="alert alert-warning" id="google">
-					Google Maps API keys are missing
+					Google Maps API key is missing
 				</div>
 				<div class="alert alert-warning" id="default-location">
 					Default Location is not set
@@ -59,7 +59,7 @@
 					container.textContent = '';
 
 					container.className = 'alert alert-success';
-					container.textContent = 'FourSquare API keys is ready';
+					container.textContent = 'FourSquare API keys are ready';
 					return true;
 				}
 				return false;
@@ -72,7 +72,7 @@
 					container.textContent = '';
 
 					container.className = 'alert alert-success';
-					container.textContent = 'Google Maps API keys is ready'
+					container.textContent = 'Google Maps API key is ready'
 					return true;
 				}
 				return false;

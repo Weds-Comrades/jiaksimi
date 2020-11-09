@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bootstrap CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+            integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+            crossorigin="anonymous"
+        />
+
+        <!-- Load necessary files-->
+        <script src="./env.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <!-- for the small icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
+
+        <!-- for the maps api -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+        <script id="mapsAPI" defer></script>
+
+        <script>
+            document.getElementById(
+                "mapsAPI"
+            ).src = `https://maps.googleapis.com/maps/api/js?key=${google_maps.api_key}&callback=initMap&v=weekly`;
+        </script>
+
+        <title>Map Directions</title>
+
+        <style type="text/css">
+            /* Always set the map height explicitly to define the size of the div
+            * element that contains the map. */
+            #map {
+                height: 100%;
+            }
+
+            .container-fluid,
+            .row {
+                height: 100%;
+            }
+
+            .col-md-8 {
+                padding: 0;
+            }
+
+            html,
+            body {
+                height: 100%;
+            }
+        </style>
+
+        <script>
+            function initMap() {
+                const directionsService = new google.maps.DirectionsService();
+                const directionsRenderer = new google.maps.DirectionsRenderer();
+
+                const queryString = window.location.search;
+                const params = new URLSearchParams(queryString);
+
+                const currentPos = params.get("currentPos").split(",");
+                const userLat = currentPos[0];
+                const userLng = currentPos[1];
+
+                const map = new google.maps.Map(
+                    document.getElementById("map"),
+                    {
+                        zoom: 15,
+                        center: { lat: Number(userLat), lng: Number(userLng) },
+                    }
+                );
+                directionsRenderer.setMap(map);
+
+                calculateAndDisplayRoute(directionsService, directionsRenderer);
+            }
+
+            function calculateAndDisplayRoute(
+                directionsService,
+                directionsRenderer
+            ) {
+                const queryString = window.location.search;
+                const params = new URLSearchParams(queryString);
+
+                const currentPos = params.get("currentPos").split(",");
+                const userLat = currentPos[0];
+                const userLng = currentPos[1];
+
+                const venuePos = params.get("venuePos").split(",");
+                const venueLat = venuePos[0];
+                const venueLng = venuePos[1];
+
+                directionsService.route(
+                    {
+                        origin: {
+                            lat: Number(userLat),
+                            lng: Number(userLng),
+                        },
+                        destination: {
+                            lat: Number(venueLat),
+                            lng: Number(venueLng),
+                        },
+                        travelMode: google.maps.TravelMode.WALKING,
+                    },
+                    (response, status) => {
+                        if (status === "OK") {
+                            directionsRenderer.setDirections(response);
+                        } else {
+                            window.alert(
+                                "Directions request failed due to " + status
+                            );
+                        }
+                    }
+                );
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="info" class="col-md-4">
+                    <!-- <img :src="photo" class="card-img-top" alt="venue_img" /> -->
+                    <img :src="photo" class="mx-auto d-block" alt="venue_img" />
+
+                    <h5 class="mt-3 text-center">{{name}}</h5>
+
+                    <ul
+                        class="list-group list-group-horizontal-sm justify-content-center"
+                    >
+                        <li
+                            class="list-group-item border-0"
+                            v-for="cat in categories"
+                        >
+                            <h6 class="text-muted">{{cat.name}}</h6>
+                        </li>
+                    </ul>
+
+                    <hr />
+
+                    <span v-if="desc.length != 0">
+                        <p class="text-justify">{{desc}}</p>
+                        <hr />
+                    </span>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="fa fa-map-marker"></i>
+                            {{ address }}
+                            <span class="text-muted float-right"
+                                >{{distance}}m</span
+                            >
+                        </li>
+                        <li
+                            class="list-group-item"
+                            v-if="Object.keys(price).length !== 0"
+                        >
+                            <b>Price: </b>{{price.message}}
+                            <i class="fa fa-usd" v-for="num in price.tier"> </i>
+                        </li>
+                        <li class="list-group-item">
+                            <a :href="foursq_url" target="_blank">
+                                Foursquare Page
+                            </a>
+                        </li>
+                        <!-- <i class="fa fa-external-link"></i>  -->
+                    </ul>
+                </div>
+                <div class="col-md-8">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const vm = new Vue({
+                el: "#info",
+                data: {
+                    name: "",
+                    address: "",
+                    foursq_url: "",
+                    price: {},
+                    desc: "",
+                    categories: [],
+                    photo: "",
+                },
+                computed: {
+                    distance: function () {
+                        const queryString = window.location.search;
+                        const params = new URLSearchParams(queryString);
+                        const distance = params.get("distance");
+                        return distance;
+                    },
+                },
+                mounted: function () {
+                    const queryString = window.location.search;
+                    const params = new URLSearchParams(queryString);
+                    const id = params.get("id");
+                    const url =
+                        "https://api.foursquare.com/v2/venues/" +
+                        id +
+                        `?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20201020`;
+
+                    axios
+                        .get(url)
+                        .then((response) => {
+                            const venue = response.data.response.venue;
+                            this.name = venue.name;
+                            this.address = venue.location.address;
+                            this.foursq_url = venue.canonicalUrl;
+                            if (venue.hasOwnProperty("price")) {
+                                this.price = venue.price;
+                            }
+                            if (Object.keys(venue).includes("description")) {
+                                this.desc = venue.description;
+                            }
+                            this.categories = venue.categories;
+                            this.photo =
+                                venue.bestPhoto.prefix +
+                                "cap300" +
+                                venue.bestPhoto.suffix;
+                        })
+                        .catch((error) => alert(error));
+                },
+            });
+        </script>
+
+        <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+        <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>

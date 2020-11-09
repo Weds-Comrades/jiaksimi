@@ -26,7 +26,7 @@
 
 1. Navigate to `app/sites/env-check.html`
 
-1. Ensure that all the alerts shown are green. If they are all green, the app is able to read the environmental values you have loaded.
+1. Ensure that all the alerts shown are green. If they are all green, you are good to go!
 
 1. Open `app/sites/index.html` to start
 
