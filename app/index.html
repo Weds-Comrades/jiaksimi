@@ -91,7 +91,7 @@
                         <!-- Save button -->
                         <div class="btn-grp mt-4">
                             <button class="btn btn-secondary" @click="resetFilter">Reset to Defaults</button>
-                            <button class="btn btn-primary ml-1" v-show="is_user_login">Save Filters</button>
+                            <button class="btn btn-primary ml-1" @click="saveFilter" v-show="is_user_login">Save Filters</button>
                         </div>
 
                     </div>
