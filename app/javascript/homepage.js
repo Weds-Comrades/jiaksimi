@@ -31,7 +31,7 @@ var main = new Vue({
         },
 
     },
-    mounted: async function () {
+    mounted: async function() {
         await this.getAllTags();
         await this.getUserInfo();
         await this.getCurrentLocation()
@@ -142,8 +142,18 @@ var main = new Vue({
         },
 
         // save filter settings for signed in user
-        // 1. update databases
+        // send a post request
         saveFilter: async function() {
+            const params = new URLSearchParams();
+            params.append('auth', true);
+            params.append('distance', this.radius);
+            params.append('tags', this.user_tags)
+
+            await axios.post(
+                '../server/api/update-filter.php',
+                params,
+            ).then(res => {console.log(res)})
+            .catch(error => console.log(error.response))
 
         },
 
@@ -154,10 +164,6 @@ var main = new Vue({
         },
     },
     computed: {
-        // change filter button color
-        filterBtnColor: function() {
-            let color = this.is_filter_card_active ? ' #007bff': "#000000";
-            return `color:${color}`;
-        },
+
     },
 });

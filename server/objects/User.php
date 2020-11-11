@@ -7,7 +7,7 @@ class User {
     private $id;
     private $email;
     private $name;
-    private $photo_bin = null;
+    private $photo_location = null;
     private $password;
 
     private $filter_distance;
@@ -41,7 +41,7 @@ class User {
             $this->email = $row['email'];
             $this->password = $row['password'];
             $this->name = $row['name'];
-            $this->photo_bin = $row['photo'];
+            $this->photo_location = $row['photo'];
 
             $this->getTags();
             $this->getPreferredDistance();
@@ -72,7 +72,7 @@ class User {
             $this->email = $row['email'];
             $this->password = $row['password'];
             $this->name = $row['name'];
-            $this->photo_bin = $row['photo'];
+            $this->photo_location = $row['photo'];
 
             $this->getTags();
             $this->getPreferredDistance();
@@ -124,9 +124,9 @@ class User {
             // extract row
             // this will make $row['tag_uid'] to just $tag_uid only
             extract($row);
-            array_push($this->filter_tags, $tag_id);
-        }
 
+            array_push($this->filter_tags, $this->getTagUID($tag_id));
+        }
     }
 
     // get all user_favourite locations
@@ -204,7 +204,7 @@ class User {
             "user_id" => $this->id,
             "email" => $this->email,
             "name" => $this->name,
-            "photo" => $this->photo_bin,
+            "photo" => $this->photo_location,
         );
     }
 
@@ -226,6 +226,28 @@ class User {
         return password_verify($password_input, $this->password);
     }
 
+    /**
+     * Get id of tags
+     * Pass uid, return id in database
+     */
+    public function getTagId($tag_uid) {
+        $find_tag_id = $this->conn->prepare("SELECT * FROM Tag WHERE tag_uid = '$tag_uid' LIMIT 1");
+        $find_tag_id->execute();
+        $tag_id = $find_tag_id->fetch(PDO::FETCH_ASSOC);
+        return $tag_id ? $tag_id['id'] : false;
+    }
+
+    /**
+     * Get tag_id of tags
+     * Pass id, return tag_uid in database
+     */
+    public function getTagUID($id) {
+        $find_tag_id = $this->conn->prepare("SELECT * FROM Tag WHERE id = $id");
+        $find_tag_id->execute();
+        $tag_id = $find_tag_id->fetch(PDO::FETCH_ASSOC);
+        return $tag_id ? $tag_id['tag_uid'] : false;
+    }
+
 
     // ---- Set Functions ----------- //
     // assume you did validation on your side and is hashed
@@ -234,7 +256,7 @@ class User {
         $this->email = $new_email == null ?  $this->email : $new_email;
         $this->password = $new_password_hash == null ?  $this->password : $new_password_hash;
         $this->name = $new_name == null ?  $this->name : $new_name;
-        $this->photo_bin = $new_photo == null ?  $this->photo_bin : $new_photo;
+        $this->photo_location = $new_photo == null ?  $this->photo_location : $new_photo;
     }
 
     // override everything in filter
@@ -252,9 +274,9 @@ class User {
             ':name' => $this->name,
         );
 
-        if ($this->photo_bin != null) {
-            // if photo_bin is NULL, dont include in $data
-            $data[':photo'] = $this->photo_bin;
+        if ($this->photo_location != null) {
+            // if photo_location is NULL, dont include in $data
+            $data[':photo'] = $this->photo_location;
             $query = isset($this->id) ? 
                 "UPDATE User SET email=:email, password=:password, name=:name, photo=:photo WHERE id = $this->id"
                     : 
@@ -279,39 +301,37 @@ class User {
         // distance records exists
         $stmt_dist_exist = $this->conn->prepare("SELECT * FROM User_Distance WHERE user_id = $this->id");
         $stmt_dist_exist->execute();
-        $stmt_dist_exist->getAll();
-        $isFilterDistanceExist = $stmt_dist_exist->rowCount() > 0;
+
+        // if exists UPDATE records of DISTANCE, otherwise INSERT because new
+        $stmt_dist = $stmt_dist_exist->rowCount() > 0 ? 
+        $this->conn->prepare("UPDATE User_Distance SET distance = $this->filter_distance WHERE user_id = $this->id") :
+            $this->conn->prepare("INSERT INTO User_Distance (user_id, distance) VALUES ($this->id, $this->filter_distance)");
+        $saveFilters['distance'] = $stmt_dist->execute();
 
         // tags records exists
         $stmt_tags_exist = $this->conn->prepare("SELECT * FROM User_Tag WHERE user_id = $this->id");
         $stmt_tags_exist->execute();
-        $stmt_tags_exist->getAll();
-        $isFilterTagsExist = $stmt_tags_exist->rowCount() > 0;
-
-        // if exists UPDATE records of DISTANCE, otherwise INSERT because new
-        $stmt_dist = $isFilterDistanceExist ? 
-            $this->conn->prepare("UPDATE User_Distance SET distance = :distance WHERE user_id = $this->id") :
-            $this->conn->prepare("INSERT INTO User_Distance (user_id, distance) VALUES ($this->id, $this->filter_distance)");
-        $saveFilters['distance'] = $stmt_dist->execute();
 
         // if exists DELETE records of TAGS
-        if ($isFilterTagsExist) {
+        if ($stmt_tags_exist->rowCount() > 0) {
             $stmt_delete_tags = $this->conn->prepare("DELETE FROM User_Tags WHERE user_id = $this->id");
             $stmt_delete_tags->execute();
         }
 
         // Loop through all the tags and create a statement
-        if ($this->filter_tags > 0) {
-            $tags_array = array();
-            foreach ($tag as $this->filter_tags){
-                array_push($tags_array, "($this->id, $tags)");
+        if (!empty($this->filter_tags)) {
+            $isTagValid = true;
+
+            foreach ($this->filter_tags as $tag){
+                // find $tag with its id in the database
+                $tag_id = $this->getTagId($tag);
+                $sql = "INSERT INTO User_Tag (user_id, tag_id) VALUES ($this->id, $tag_id)";
+                $stmt_insert_tags = $this->conn->prepare($sql);
+                $isTagValid = $stmt_insert_tags->execute() && $isTagValid;
+                $stmt_insert_tags->closeCursor();
             }
-            $insert_tags = implode(', ' , $tags_array);
-            $stmt_insert_tags = $this->conn->prepare(
-                "INSERT INTO User_Tag (user_id, tag_id) VALUES $insert_tags"
-            );
-            $saveFilters['tags'] = $stmt_insert_tags->execute();
-        }    
+            $saveFilters['tag'] = $tag_id;
+        }
         
         return $saveFilters;
     }

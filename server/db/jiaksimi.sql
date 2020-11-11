@@ -42,7 +42,7 @@ CREATE TABLE `User` (
   `email` varchar(255) NOT NULL UNIQUE,
   `password` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `photo` longblob
+  `photo` varchar(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
