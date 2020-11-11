@@ -8,9 +8,9 @@ Vue.component('navbar', {
             </li>
         </ul>
 
-        <button v-if="!isLogin" class="btn btn-light">
+        <a v-if="!isLogin" v-bind:href="links.login" class="btn btn-light">
             Login
-        </button>
+        </a>
 
         <div v-else class="dropdown">
             <button class="btn round-dropdown" id="dropdownMenuButton" type="button" data-toggle="dropdown"></button>

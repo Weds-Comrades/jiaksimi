@@ -26,8 +26,9 @@ var main = new Vue({
             'home': './',
             'favourites': '#',
             'settings': '#',
-            'logout': '../server/test/logout.php',
+            'logout': './sites/logout.php',
             'split': '#',
+            'login': './sites/login.php',
         },
 
     },
