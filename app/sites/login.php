@@ -26,14 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		
 	// user not found
 	if (!$user->getUserByEmail($email)) {
-		$error['email'] =  "<div class='invalid-feedback'>We couldn't find an account linked to this email</div>";
+		$error['email'] =  true;
 		$_SESSION['error'] = $error;
 	}
 	else {
 		// verify password
 		// no matchy
 		if (!$user->isPasswordMatch($password)) {
-			$error['password'] =  "<div class='invalid-feedback'>Incorrect Password</div>";
+			$error['password'] =  true;
 			$_SESSION['error'] = $error;
 		}
 		else {
@@ -69,33 +69,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	</head>
 
 	<body>
-		<div class="container mt-5 px-5">
+		<div class="container">
 			<h1>Login</h1>
+		</div>
 
-				<form action="<?php echo(htmlspecialchars($_SERVER["PHP_SELF"]))?>" method="post">
-					<div class="form-group">
-						<label for="email-input">Email address</label>
-						<input
-							name="email_input" type="text" id="email-input" aria-describedby="emailHelp" required
-							<?php echo isset($error['email']) ? "class='form-control is-invalid'" : "class='form-control'" ?>
-						>
-						<?php echo isset($error['email']) ? $error['email'] : "" ?>
-					</div>
-					<div class="form-group">
-						<label for="password-input">Password</label>
-						<input 
-							name="password_input" type="password" id="password-input" required 
-							<?php echo isset($error['password']) ? "class='form-control is-invalid'" : "class='form-control'" ?>
-						>
-						<?php echo isset($error['password']) ? $error['password'] : "" ?>
-					</div>
+		<div class="container px-5">
+			<form action="<?php echo(htmlspecialchars($_SERVER["PHP_SELF"]))?>" method="post">
+				<div class="form-group">
+					<label for="email-input">Email address</label>
+					<input
+						name="email_input" type="text" id="email-input" aria-describedby="emailHelp" required
+						<?php echo isset($error['email']) ? "class='form-control is-invalid'" : "class='form-control'" ?>
+					>
+					<div class='invalid-feedback'>We couldn't find an account linked to this email</div>
+				</div>
+				<div class="form-group">
+					<label for="password-input">Password</label>
+					<input 
+						name="password_input" type="password" id="password-input" required 
+						<?php echo isset($error['password']) ? "class='form-control is-invalid'" : "class='form-control'" ?>
+					>
+					<div class='invalid-feedback'>Incorrect Password</div>
+				</div>
 
-					<div class="button">
-						<button type="submit" class="btn btn-primary">Login</button>
-					</div>
-				</form>
+				<div class="button">
+					<button type="submit" class="btn btn-primary">Login</button>
+				</div>
+			</form>
 			
-			
+			<div id="link">
+				<a class="text-secondary" href="./new_account.html">Sign up Today!</a>
+			</div>
 
 		</div>
 	</body>
