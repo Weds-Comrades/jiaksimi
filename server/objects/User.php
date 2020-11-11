@@ -7,7 +7,7 @@ class User {
     private $id;
     private $email;
     private $name;
-    private $photo_bin = null;
+    private $photo_location = null;
     private $password;
 
     private $filter_distance;
@@ -41,7 +41,7 @@ class User {
             $this->email = $row['email'];
             $this->password = $row['password'];
             $this->name = $row['name'];
-            $this->photo_bin = $row['photo'];
+            $this->photo_location = $row['photo'];
 
             $this->getTags();
             $this->getPreferredDistance();
@@ -72,7 +72,7 @@ class User {
             $this->email = $row['email'];
             $this->password = $row['password'];
             $this->name = $row['name'];
-            $this->photo_bin = $row['photo'];
+            $this->photo_location = $row['photo'];
 
             $this->getTags();
             $this->getPreferredDistance();
@@ -204,7 +204,7 @@ class User {
             "user_id" => $this->id,
             "email" => $this->email,
             "name" => $this->name,
-            "photo" => $this->photo_bin,
+            "photo" => $this->photo_location,
         );
     }
 
@@ -256,7 +256,7 @@ class User {
         $this->email = $new_email == null ?  $this->email : $new_email;
         $this->password = $new_password_hash == null ?  $this->password : $new_password_hash;
         $this->name = $new_name == null ?  $this->name : $new_name;
-        $this->photo_bin = $new_photo == null ?  $this->photo_bin : $new_photo;
+        $this->photo_location = $new_photo == null ?  $this->photo_location : $new_photo;
     }
 
     // override everything in filter
@@ -274,9 +274,9 @@ class User {
             ':name' => $this->name,
         );
 
-        if ($this->photo_bin != null) {
-            // if photo_bin is NULL, dont include in $data
-            $data[':photo'] = $this->photo_bin;
+        if ($this->photo_location != null) {
+            // if photo_location is NULL, dont include in $data
+            $data[':photo'] = $this->photo_location;
             $query = isset($this->id) ? 
                 "UPDATE User SET email=:email, password=:password, name=:name, photo=:photo WHERE id = $this->id"
                     : 
