@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/shared.css">
+    <title>Jiak Simi</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../javascript/components/navbar.js"></script>
+
+    <style>
+        body{
+            background-color: e5e5e5;
+        }
+
+        #Input{
+            display: grid;
+            justify-content: center;
+        }
+
+        #who_share{
+            margin-left: 50px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <navbar v-bind:is-login="is_user_login"v-bind:links="links" id="nav"></navbar>
+
+    <!--First Part of the page where user specifies number of people, svc charge and gst-->
+    <div id="input_section" class="d-inline">
+        <div id="Input">
+            <!--Huge Title, don't wanna miss it out-->
+            <div class="d-flex justify-content-center">
+                <h1 style="margin-top:60px;margin-bottom:100px;">Bill Splitter</h1>
+            </div>
+
+            <!--Section where user inserts information-->
+            <div>
+                <div class="d-flex justify-content-center">
+                    <label for="" style="font-weight: bold; margin-bottom: 20px;">Please give the following details</label>
+                </div>
+    
+                <form action="" id="form1">
+                    <div class="form-row align-items-center" style="margin-bottom: 10px;">
+                        <div class="col">
+                            <label class="sr-only" for="inlineFormInputGroupUsername" >Username</label>
+                            <div class="input-group" style="height:50px;">
+                              <div class="input-group-prepend" style="width:160px;">
+                                <div class="input-group-text" style="width:160px">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-people-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                                    </svg>
+                                    No. of people
+                                </div>
+                                </div>
+                              <select class="custom-select mr-sm-2" id="num_ppl" style="height:50px;">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                              </select>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="form-row align-items-center" style="margin-bottom: 10px;">
+                        <div class="col">
+                            <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                            <div class="input-group" style="height:50px;">
+                              <div class="input-group-prepend" style="width:160px">
+                                <div class="input-group-text" style="width:160px">Service Charge (%)</div>
+                              </div>
+                              <input type="text" class="form-control" id="svc_charge" placeholder="eg: 10" style="height:50px;">
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="form-row align-items-center">
+                        <div class="col">
+                            <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+                            <div class="input-group" style="height:50px;">
+                              <div class="input-group-prepend" style="width:160px">
+                                <div class="input-group-text" style="width:160px">GST Charge (%)</div>
+                              </div>
+                              <input type="text" class="form-control" id="gst_charge" placeholder="eg: 7" style="height:50px;">
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="d-flex justify-content-center" style="margin: 50px;">
+                        <button class="btn" style="background-color:rgb(109, 221, 65); font-weight: bold; width: 250px; height:50px;" id="split_pls">Split My Bill</button>
+                    </div>
+    
+                </form>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!--Second part of page which is hidden initially-->
+    <div id="output_section" class="d-none" style="margin-top: 100px;">
+        <!--This is the back button to lead the user back to the previous part if they want to change the gst/svc charge/ number of people-->
+
+        <div class="col-4" style="width:428.792px;">
+            <button class="btn" id="return" style="margin-left: 70px;">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"/>
+                  </svg>
+                  <b>Back</b>
+            </button>
+        </div>
+
+
+        <!--Second part of the page where user inputs more specific information like the dish, the cost etc-->
+        <div id="main_output" class="row d-flex justify-content-center" style="width:80%; margin:auto;">
+            <!--Form for user to specify details-->
+            <div class="col-md-6" style=" border-radius: 15px; padding:15px; margin:10px; border:rgb(236, 236, 236) solid 1.5px;">
+                <form action="" id="form2">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="dishName" placeholder="What did you share?">
+                        <input type="text" class="form-control" id="price" placeholder="How much did it cost?">
+                        <div id="display_error">
+
+                        </div>
+                        <br>
+                        <label for="">Who did you share it with?</label>
+                        <div id="who_share">
+                        </div>
+
+                    </div>
+
+                    <button class="btn" style="background-color:rgb(109, 221, 65); font-weight: bold; width: 20%px; height:10%;" id="add_item">Add Item</button>
+
+                </form>
+            </div>
+            
+            <!--Where the breakdown of who owes what happens-->
+            <div class="col-md-4" id="display_owe" style="margin: 20px">
+
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="../javascript/bill_splitter.js"></script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+
+</html>
