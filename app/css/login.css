@@ -1,0 +1,22 @@
+.login-text {
+    margin-top: 2em;
+}
+
+.container h1 {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.button {
+    margin-top: 3em;
+    display: flex;
+    justify-content: center;
+}
+
+.button .btn-primary {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+
