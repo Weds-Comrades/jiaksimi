@@ -40,7 +40,7 @@ var main = new Vue({
                     // this.image_location = res.user.photo;
                 }).catch(error => {
                     console.log("Not login");
-                    // todo: redirect here
+                    window.location.replace("../");
                 });
         },
 
