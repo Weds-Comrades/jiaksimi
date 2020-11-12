@@ -28,7 +28,7 @@ if (!isset($_SESSION['user'])) {
     if (!isset($_POST['auth'])) {
         // ensure that the request is authenticate as anyone can access 
         http_response_code(405);
-        echo json_encode(array("message" => $_POST['distance']));
+        echo json_encode(array("message" => "You done goof"));
     } else {
         $distance = $_POST['distance'];
         $tag = explode(',', $_POST['tags']);

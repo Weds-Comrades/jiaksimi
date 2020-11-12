@@ -39,7 +39,7 @@ if (isset($_POST['user'])) {
         $_SESSION["user"] = $response_array;
     } else {
         http_response_code(500);
-        echo "An error has occured";
+        json_encode(array('message' => 'Email exist'));
     }
 }
 ?>

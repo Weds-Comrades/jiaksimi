@@ -86,6 +86,7 @@ class User {
         return array(
             "email" => $this->email,
             "name" => $this->name,
+            "photo" => $this->photo_location,
         );
     }
 
@@ -215,6 +216,86 @@ class User {
             "distance" => $this->filter_distance,
             "tags" => $this->filter_tags,
         );
+    }
+
+    // update user details with password
+    public function updateDetailsWithPassword($email, $password, $name, $photo) {
+        $sql = $email === $this->email ? 
+            "
+                UPDATE User SET
+                    password = :password,
+                    name = :name,
+                    photo = :photo
+                WHERE id = :id
+            " : 
+            "
+                UPDATE User SET
+                    email = :email,
+                    password = :password,
+                    name = :name,
+                    photo = :photo
+                WHERE id = :id
+            ";
+
+        $data = $email === $this->email ? 
+            [
+                "id" => $this->id,
+                "password" => $password,
+                "name" => $name,
+                "photo" => $photo,
+            ] : 
+            [
+                "id" => $this->id,
+                "email" => $email,
+                "password" => $password,
+                "name" => $name,
+                "photo" => $photo,
+            ];
+        
+        $stmt = $this->conn->prepare($sql);    
+        if ($stmt->execute($data)) { 
+            $this->getUserById($this->id);
+            return true;
+        }
+        return false;
+    }
+
+    // update user details
+    public function updateDetails($email, $name, $photo) {
+        $sql = $email === $this->email ? 
+            "
+                UPDATE User SET
+                    name = :name,
+                    photo = :photo
+                WHERE id = :id
+            " : 
+            "
+                UPDATE User SET
+                    email = :email,
+                    name = :name,
+                    photo = :photo
+                WHERE id = :id
+            ";
+
+        $data = $email === $this->email ? 
+            [
+                "id" => $this->id,
+                "name" => $name,
+                "photo" => $photo,
+            ] : 
+            [
+                "id" => $this->id,
+                "email" => $email,
+                "name" => $name,
+                "photo" => $photo,
+            ];
+        
+        $stmt = $this->conn->prepare($sql);    
+        if ($stmt->execute($data)) { 
+            $this->getUserById($this->id);
+            return true;
+        }
+        return false;
     }
 
     /* 

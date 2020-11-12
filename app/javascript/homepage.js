@@ -25,9 +25,10 @@ var main = new Vue({
         links: {
             'home': './',
             'favourites': '#',
-            'settings': '#',
-            'logout': '../server/test/logout.php',
-            'split': '#',
+            'settings': './sites/profile.html',
+            'logout': './sites/logout.php',
+            'split': './sites/bill_splitter.html',
+            'login': './sites/login.php',
         },
 
     },
@@ -85,19 +86,19 @@ var main = new Vue({
             // get images
             for (const venue of venues) {
                 const url_venue_details = `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`
-                var photo = await axios.get(url_venue_details)
-                    .then(response => {
-                        if (response.data.response.venue.bestPhoto !== undefined) {
-                            var photo_raw = response.data.response.venue.bestPhoto;
-                            return photo_raw.prefix + 'cap300' + photo_raw.suffix;
-                        } else {
-                            var photo_raw = response.data.response.venue.categories[0].icon;
-                            return photo_raw.prefix + '512' + photo_raw.suffix;
-                        }
-                    });
+                // var photo = await axios.get(url_venue_details)
+                //     .then(response => {
+                //         if (response.data.response.venue.bestPhoto !== undefined) {
+                //             var photo_raw = response.data.response.venue.bestPhoto;
+                //             return photo_raw.prefix + 'cap300' + photo_raw.suffix;
+                //         } else {
+                //             var photo_raw = response.data.response.venue.categories[0].icon;
+                //             return photo_raw.prefix + '512' + photo_raw.suffix;
+                //         }
+                //     });
 
                 // dev purpose
-                // var photo = "./images/bg-sg.jpg";
+                var photo = "./images/bg-sg.jpg";
 
                 // push to array
                 fetch_venue.push({
