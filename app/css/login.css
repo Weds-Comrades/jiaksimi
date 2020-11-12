@@ -92,7 +92,7 @@ body {
 }
 
 .avatar-edit label:after {
-    content: url('images/edit.png');
+    /* content: url('images/edit.png'); */
     transform: scale(.7);
     display:inline-block;
     font-family: 'FontAwesome';

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../css/shared.css">
     <link rel="stylesheet" href="../css/login.css">
 
-
 </head>
 <body>
 
@@ -49,28 +48,6 @@
         </form>
 
     </div>
-
-
-    <script>
-        function checkPassword(form) { 
-                password1 = this.password_input.value; 
-                password2 = this.cpassword.value; 
-                let alertmsg = document.getElementById("alertmsg");
-
-                if (password1 != password2) { 
-                    document.getElementById("cpassword").value = '';
-                    alertmsg.innerHTML = `<div class="alert alert-danger" role="alert">New Password and Confirm Password must match!</div>`;
-                    return false; 
-                } 
-  
-                // If same return True. 
-                else { 
-                    // alertmsg.innerHTML = `<div class="alert alert-success" role="alert">Change was made successfully</div>`;
-                    alertmsg.innerHTML = "";
-                    return true; 
-                } 
-            }
-    </script>
 
     <!-- Custom JavaScript -->
     <script src="../javascript/new_account.js"></script>

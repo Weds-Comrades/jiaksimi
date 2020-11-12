@@ -86,6 +86,7 @@ class User {
         return array(
             "email" => $this->email,
             "name" => $this->name,
+            "photo" => $this->photo_location,
         );
     }
 

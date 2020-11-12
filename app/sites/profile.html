@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Edit Profile</title>
+
+
+    <!-- Javascript Preload -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/shared.css">
+    <link rel="stylesheet" href="../css/login.css">
+        
+</head>
+<body>
+
+    <div id="main" class="container px-5"> 
+        <form v-on:submit.prevent="updateProfile" method="post">
+
+            <div class="form-group">
+                <div class="avatar-upload">
+                    <div class="avatar-edit">
+                        <input type='file' name="photo" id="photo" accept=".png, .jpg, .jpeg" />
+                        <label for="photo"></label>
+                    </div>
+                    <div class="avatar-preview">
+                        <div id="imagePreview">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="name_input"
+                    name="name_input"
+                    v-model.trim="name"
+                    placeholder="Name"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input 
+                    type="email"
+                    class="form-control"
+                    id="email_input"
+                    name="email_input"
+                    placeholder="Email"
+                    v-model.trim="email"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="pwd">New Password</label>
+                <input
+                    type="password"
+                    :class="is_pwd_invalid ? 'form-control is-invalid' : 'form-control'"
+                    id="password_input"
+                    name="password_input"
+                    placeholder="Password"
+                    v-model.trim="password"
+                >
+                <div class="invalid-feedback">Passwords does not match</div>
+            </div>
+
+            <div class="form-group" id="last_input">
+                <label for="cpassword">Confirm Password</label>
+                <input
+                    type="password"
+                    :class="is_pwd_invalid ? 'form-control is-invalid' : 'form-control'"
+                    id="cpassword"
+                    name="cpassword"
+                    placeholder.trim="Confirm Password"
+                    v-model="passwordC"
+                >
+                <div class="invalid-feedback">Passwords does not match</div>
+            </div>
+
+            <div class="text-center">
+                <button
+                    name="submit"
+                    type="submit"
+                    class="btn btn-primary"
+                >Save</button>
+            </div>
+                    
+        </form>
+    </div>
+
+    <script>
+        // function readURL(input) {
+        //     console.log("js");
+        //     if (input.files && input.files[0]) {
+        //         console.log("reached");
+        //         var reader = new FileReader();
+        //         reader.onload = function(e) {
+        //             $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+        //             $('#imagePreview').hide();
+        //             $('#imagePreview').fadeIn(650);
+        //         }t
+        //         reader.readAsDataURL(input.files[0]);
+        //     }
+        // }
+        // $("#photo").change(function() {
+        //     readURL(this);
+        // });
+
+        // function checkPassword(form) { 
+        //         // alert("reached");
+        //         password1 = this.password_input.value; 
+        //         password2 = this.cpassword.value; 
+        //         let alertmsg = document.getElementById("alertmsg");
+                
+        //         if (password1 != password2) { 
+        //             document.getElementById("cpassword").value = '';
+        //             alertmsg.innerHTML = `<div class="alert alert-danger" role="alert">New Password and Confirm Password must match!</div>`;
+        //             return false; 
+        //         } 
+  
+        //         // If same return True. 
+        //         else { 
+        //             // alertmsg.innerHTML = `<div class="alert alert-success" role="alert">Change was made successfully</div>`;
+        //             alertmsg.innerHTML = "";
+        //             return true; 
+        //         } 
+        //     }
+    </script>
+    <script src="../javascript/profile.js"></script>
+
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
