@@ -34,7 +34,6 @@ var main = new Vue({
             await axios.get('../../server/api/get-user-details.php')
                 .then(res => {
                     var user = res.data.user
-                    console.log(user)
                     this.is_user_login = true;
                     this.email = user.email;
                     this.name = user.name;
