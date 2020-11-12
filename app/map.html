@@ -20,12 +20,16 @@
         <script src="./env.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="./javascript/components/navbar.js"></script>
 
         <!-- for the small icons -->
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" href="./css/shared.css">
+        <link rel="stylesheet" href="./css/map.css">
 
         <!-- for the maps api -->
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -39,28 +43,6 @@
         </script>
 
         <title>Map Directions</title>
-
-        <style type="text/css">
-            /* Always set the map height explicitly to define the size of the div
-            * element that contains the map. */
-            #map {
-                height: 100%;
-            }
-
-            .container-fluid,
-            .row {
-                height: 100%;
-            }
-
-            .col-md-8 {
-                padding: 0;
-            }
-
-            html,
-            body {
-                height: 100%;
-            }
-        </style>
 
         <script>
             function initMap() {
@@ -127,6 +109,12 @@
         </script>
     </head>
     <body>
+        <div id="nav" style="position: absolute; top: 0; left: auto; right: 0">
+            <navbar
+                v-bind:is-login="is_user_login"
+                v-bind:links="links"
+            ></navbar>
+        </div>
         <div class="container-fluid">
             <div class="row">
                 <div id="info" class="col-md-4">
@@ -182,59 +170,7 @@
             </div>
         </div>
 
-        <script>
-            const vm = new Vue({
-                el: "#info",
-                data: {
-                    name: "",
-                    address: "",
-                    foursq_url: "",
-                    price: {},
-                    desc: "",
-                    categories: [],
-                    photo: "",
-                },
-                computed: {
-                    distance: function () {
-                        const queryString = window.location.search;
-                        const params = new URLSearchParams(queryString);
-                        const distance = params.get("distance");
-                        return distance;
-                    },
-                },
-                mounted: function () {
-                    const queryString = window.location.search;
-                    const params = new URLSearchParams(queryString);
-                    const id = params.get("id");
-                    const url =
-                        "https://api.foursquare.com/v2/venues/" +
-                        id +
-                        `?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20201020`;
-
-                    axios
-                        .get(url)
-                        .then((response) => {
-                            const venue = response.data.response.venue;
-                            this.name = venue.name;
-                            this.address = venue.location.address;
-                            this.foursq_url = venue.canonicalUrl;
-                            if (venue.hasOwnProperty("price")) {
-                                this.price = venue.price;
-                            }
-                            if (Object.keys(venue).includes("description")) {
-                                this.desc = venue.description;
-                            }
-                            this.categories = venue.categories;
-                            this.photo =
-                                venue.bestPhoto.prefix +
-                                "cap300" +
-                                venue.bestPhoto.suffix;
-                        })
-                        .catch((error) => alert(error));
-                },
-            });
-        </script>
-
+        <script src="./javascript/map.js"></script>
         <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
         <script
             src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
