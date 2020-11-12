@@ -23,7 +23,7 @@
 
             <div class="form-group">
                 <div class="avatar-upload">
-                    <div class="avatar-edit">
+                    <div class="avatar-edit" v-if="is_edit">
                         <input type='file' name="photo" id="photo" accept=".png, .jpg, .jpeg" />
                         <label for="photo"></label>
                     </div>
@@ -41,8 +41,9 @@
                     class="form-control"
                     id="name_input"
                     name="name_input"
-                    v-model.trim="name"
                     placeholder="Name"
+                    v-model.trim="name"
+                    :readonly="is_edit ? false : true"
                 >
             </div>
 
@@ -55,10 +56,11 @@
                     name="email_input"
                     placeholder="Email"
                     v-model.trim="email"
+                    :readonly="is_edit ? false : true"
                 >
             </div>
 
-            <div class="form-group">
+            <div class="form-group" v-if="is_edit">
                 <label for="pwd">New Password</label>
                 <input
                     type="password"
@@ -71,26 +73,41 @@
                 <div class="invalid-feedback">Passwords does not match</div>
             </div>
 
-            <div class="form-group" id="last_input">
+            <div class="form-group" id="last_input" v-if="is_edit">
                 <label for="cpassword">Confirm Password</label>
-                <input
+                <input v-if="is_edit"
                     type="password"
                     :class="is_pwd_invalid ? 'form-control is-invalid' : 'form-control'"
                     id="cpassword"
                     name="cpassword"
-                    placeholder.trim="Confirm Password"
-                    v-model="passwordC"
+                    placeholder="Confirm Password"
+                    v-model.trim="passwordC"
                 >
                 <div class="invalid-feedback">Passwords does not match</div>
             </div>
 
-            <div class="text-center">
-                <button
+            <div class="text-center" v-if="is_edit">
+                <button v-if="is_edit"
                     name="submit"
                     type="submit"
                     class="btn btn-primary"
                 >Save</button>
+                <button 
+                    name="cancel"
+                    value="cancel"
+                    @click="toggleEdit"
+                    class="btn btn-secondary"
+                >Cancel</button>
             </div>
+            <div class="text-center" v-else>
+                <button 
+                    name="cancel"
+                    value="cancel"
+                    @click="toggleEdit"
+                    class="btn btn-primary"
+                >Edit</button>
+            </div>
+
                     
         </form>
     </div>

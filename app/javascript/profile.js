@@ -21,6 +21,7 @@ var main = new Vue({
         // booleans
         is_user_login: false,
         is_pwd_invalid: false,
+        is_edit: false,
     },
 
     mounted: async function() {
@@ -45,6 +46,10 @@ var main = new Vue({
 
         validatePassword: function() {
             return this.password === this.passwordC;
+        },
+
+        toggleEdit: function() {
+            this.is_edit = !this.is_edit;
         },
 
         updateProfile: async function() {
