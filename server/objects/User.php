@@ -218,41 +218,85 @@ class User {
         );
     }
 
-    // update user details
-    public function updateDetails($id, $email, $password, $name, $photo) {
-        // STEP 1
-        $connMgr = new ConnectionManager();
-        $conn = $connMgr->connect();
+    // update user details with password
+    public function updateDetailsWithPassword($email, $password, $name, $photo) {
+        $sql = $email === $this->email ? 
+            "
+                UPDATE User SET
+                    password = :password,
+                    name = :name,
+                    photo = :photo
+                WHERE id = :id
+            " : 
+            "
+                UPDATE User SET
+                    email = :email,
+                    password = :password,
+                    name = :name,
+                    photo = :photo
+                WHERE id = :id
+            ";
 
-        // STEP 2
-        $sql = "UPDATE
-                    user
-                SET
-                    'email' = ':email',
-                    'password' = ':password',
-                    'name' = ':name',
-                    'photo' = ':photo'
-                WHERE 
-                    id = :id";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
-        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
-        $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-        $stmt->bindParam(':photo', $photo, PDO::PARAM_STR);
-
-
-        // STEP 3
-        if( $stmt->execute() ) {
-            // STEP 4
-            $stmt = null;
-            $conn = null;
+        $data = $email === $this->email ? 
+            [
+                "id" => $this->id,
+                "password" => $password,
+                "name" => $name,
+                "photo" => $photo,
+            ] : 
+            [
+                "id" => $this->id,
+                "email" => $email,
+                "password" => $password,
+                "name" => $name,
+                "photo" => $photo,
+            ];
+        
+        $stmt = $this->conn->prepare($sql);    
+        if ($stmt->execute($data)) { 
+            $this->getUserById($this->id);
             return true;
         }
-
-        // STEP 4
         return false;
+    }
+
+    // update user details
+    public function updateDetails($email, $name, $photo) {
+        $sql = $email === $this->email ? 
+            "
+                UPDATE User SET
+                    name = :name,
+                    photo = :photo
+                WHERE id = :id
+            " : 
+            "
+                UPDATE User SET
+                    email = :email,
+                    name = :name,
+                    photo = :photo
+                WHERE id = :id
+            ";
+
+        $data = $email === $this->email ? 
+            [
+                "id" => $this->id,
+                "name" => $name,
+                "photo" => $photo,
+            ] : 
+            [
+                "id" => $this->id,
+                "email" => $email,
+                "name" => $name,
+                "photo" => $photo,
+            ];
+        
+        $stmt = $this->conn->prepare($sql);    
+        if ($stmt->execute($data)) { 
+            $this->getUserById($this->id);
+            return true;
         }
+        return false;
+    }
 
     /* 
      * verify password input with hash

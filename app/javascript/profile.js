@@ -5,7 +5,7 @@ var main = new Vue({
         links: {
             'home': '../',
             'favourites': '#',
-            'settings': './edit_profile.html',
+            'settings': './profile.html',
             'logout': './logout.php',
             'split': './bill_splitter.html',
             'login': './login.php',
@@ -21,6 +21,7 @@ var main = new Vue({
         // booleans
         is_user_login: false,
         is_pwd_invalid: false,
+        is_email_invalid: false,
         is_edit: false,
     },
 
@@ -54,6 +55,29 @@ var main = new Vue({
 
         updateProfile: async function() {
             this.is_pwd_invalid = !this.validatePassword();
+            
+            if (!this.is_pwd_invalid) {
+                const params = new URLSearchParams();
+                params.append('email', this.email);
+                params.append('name', this.name);
+                params.append('image', this.image_location);
+
+                if(this.password.length > 0) {
+                    params.append('password', this.password);
+                }
+                
+                await axios.post(
+                    '../../server/api/update-user.php',
+                    params,
+                ).then(res => {
+                    this.password = "";
+                    this.passwordC = "";
+                    this.is_email_invalid = false;
+                    this.toggleEdit();
+                }).catch(error => {
+                    this.is_email_invalid = true;
+                })
+            }
         }
     }
 });
