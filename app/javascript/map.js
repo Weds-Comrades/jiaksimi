@@ -12,6 +12,7 @@ const main = new Vue({
         },
 
         // map variables
+        
         name: "",
         address: "",
         foursq_url: "",
@@ -21,9 +22,10 @@ const main = new Vue({
         photo: "",
         currentPos: "",
         venuePos: "",
-
+        foursq_id: "",
 
         is_user_login: false,
+        is_favourite: false,
     },
     mounted: async function () {
         await this.fetchData();
@@ -41,17 +43,17 @@ const main = new Vue({
         getUserInfo: async function() {
             await axios.get('../server/api/get-user-details.php')
                 .then(res => {
-                    var user = res.data.user
+                    this.is_favourite = res.data.locations.includes(this.foursq_id);
                     this.is_user_login = true;
                 })
         },
         fetchData: async function() {
             const queryString = window.location.search;
             const params = new URLSearchParams(queryString);
-            const id = params.get("id");
+            this.foursq_id = params.get("id");
             const url =
                 "https://api.foursquare.com/v2/venues/" +
-                id +
+                this.foursq_id +
                 `?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20201020`;
             this.venuePos = params.get('venuePos');
             this.currentPos = params.get('currentPos');
@@ -81,6 +83,18 @@ const main = new Vue({
         },
         openMapApp: function() {
             window.location.href = `https://www.google.com/maps/dir/?api=1&origin=${this.currentPos}&destination=${this.venuePos}`
+        },
+
+        // send to server to set as or remove as favourites
+        updateFavourite: async function() {
+            const params = new URLSearchParams();
+            params.append('place_id', this.foursq_id);
+
+            await axios.post("../server/api/update-favourites.php", params)
+                .then(res => {
+                    // update user info
+                    this.getUserInfo();
+                }).catch(error => console.log(error.response));
         },
     },
 })
