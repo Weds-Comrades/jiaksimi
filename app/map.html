@@ -142,11 +142,16 @@
                         <!-- buttons -->
     
                         <div id="buttons-row">
-                            <button class="btn btn-secondary button" @click="openMapApp">
+                            <button class="btn btn-outline-secondary button" @click="openMapApp">
                                 <span class="material-icons" style="margin-right: -12px;">maps</span>                               
                                 <span>Directions</span>
                             </button>
-                            <button class="btn btn-secondary button" style="margin-left: 12px;">
+                            <button 
+                                :class="is_favourite ? 'btn btn-danger button' : 'btn btn-outline-secondary button'"
+                                style="margin-left: 12px;"
+                                v-if="is_user_login"
+                                @click="updateFavourite"
+                            >
                                 <span class="material-icons" style="margin-right: 8px;">favorite</span>                               
                                 <span>Favourites</span>
                             </button>
