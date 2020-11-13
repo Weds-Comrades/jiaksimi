@@ -53,7 +53,7 @@ var main = new Vue({
                     });
 
                 // dev purpose
-                // var photo = "../images/bg-sg-1.jpg";
+                // var photo = "../images/bg/sg-1.jpg";
 
                 // push to array
                 fetch_venue.push({
