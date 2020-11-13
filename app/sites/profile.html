@@ -27,21 +27,21 @@
         ></navbar>
 
         <div class="container px-5 pt-3">
-            <form v-on:submit.prevent="updateProfile" method="post">
+            <form v-on:submit.prevent="" method="post">
 
                 <div class="form-group">
                     <div class="avatar-upload">
                         <div class="avatar-edit" v-if="is_edit">
-                            <!-- <input type='file' name="photo" id="photo" accept=".png, .jpg, .jpeg" /> -->
-                            <label for="photo">
-                                <span class='material-icons'
+                            <button for="photo"
                                 data-toggle="collapse"
                                 data-target="#select_image"
-                                aria-expanded="false">create</span> 
+                                aria-expanded="false"
+                            >
+                                <span class='material-icons'>create</span> 
                             </label>
                         </div>
                         <div class="avatar-preview">
-                            <div id="imagePreview" ref="imagePreview" style="background-image: url('../images/user.png')">
+                            <div id="imagePreview" ref="imagePreview" v-bind:style="{'background-image': 'url(\'../images/profile/'+ image + '.png\')'}">
                             </div>
                         </div>
                     </div>
@@ -49,14 +49,41 @@
 
                 <h1 v-if="!is_edit">Hello, {{name}}</h1>
 
-                <div class="collapse mt-2" id="select_image">
+                <div class="collapse mb-5" id="select_image">
                     <div class="card card-body">
-                        <span style="text-align:center">
-                            
-                            <img src="../images/bear.png" v-on:click="changeImage(src)" class="profile_images pointer">
-                            <img src="../images/man.png" v-on:click="changeImage(src)" class="profile_images pointer">
-                            <img src="../images/woman.png" v-on:click="changeImage(src)" class="profile_images pointer">
-                        </span>
+                        <h6>Change Profile Picture</h6>
+
+                        <div class="pic-row">
+                            <label>
+                                <input type="radio" name="image_picker" value="cat" v-model="image">
+                                <img src="../images/profile/cat.png" class="profile_image_picker">
+                            </label>
+
+                            <label>
+                                <input type="radio" name="image_picker" value="dog" v-model="image">
+                                <img src="../images/profile/dog.png" class="profile_image_picker">
+                            </label>
+
+                            <label>
+                                <input type="radio" name="image_picker" value="fox" v-model="image">
+                                <img src="../images/profile/fox.png" class="profile_image_picker">
+                            </label>
+
+                            <label>
+                                <input type="radio" name="image_picker" value="rabbit" v-model="image">
+                                <img src="../images/profile/rabbit.png" class="profile_image_picker">
+                            </label>
+
+                            <label>
+                                <input type="radio" name="image_picker" value="squrriel" v-model="image">
+                                <img src="../images/profile/squrriel.png" class="profile_image_picker">
+                            </label>
+
+                            <label>
+                                <input type="radio" name="image_picker" value="kingfisher" v-model="image">
+                                <img src="../images/profile/kingfisher.png" class="profile_image_picker">
+                            </label>
+                        </div>
                     </div>
                 </div>
 
