@@ -24,7 +24,7 @@ var main = new Vue({
         // links for navbar
         links: {
             'home': './',
-            'favourites': '#',
+            'favourites': './sites/favourites.html',
             'settings': './sites/profile.html',
             'logout': './sites/logout.php',
             'split': './sites/bill_splitter.html',
@@ -98,7 +98,7 @@ var main = new Vue({
                 //     });
 
                 // dev purpose
-                var photo = "./images/bg-sg.jpg";
+                var photo = "./images/bg-sg-1.jpg";
 
                 // push to array
                 fetch_venue.push({
