@@ -109,66 +109,87 @@
         </script>
     </head>
     <body>
-        <div id="nav" style="position: absolute; top: 0; left: auto; right: 0">
-            <navbar
-                v-bind:is-login="is_user_login"
-                v-bind:links="links"
-            ></navbar>
-        </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div id="info" class="col-md-4">
-                    <!-- <img :src="photo" class="card-img-top" alt="venue_img" /> -->
-                    <img :src="photo" class="mx-auto d-block" alt="venue_img" />
 
-                    <h5 class="mt-3 text-center">{{name}}</h5>
+        <div id="main">
+            <nav id="nav">
+                <navbar
+                    v-bind:is-login="is_user_login"
+                    v-bind:links="links"
+                ></navbar>
+            </nav>
 
-                    <ul
-                        class="list-group list-group-horizontal-sm justify-content-center"
-                    >
-                        <li
-                            class="list-group-item border-0"
-                            v-for="cat in categories"
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="info" class="col-md-4">
+                        <!-- <img :src="photo" class="card-img-top" alt="venue_img" /> -->
+                        <img :src="photo" class="mx-auto d-block" alt="venue_img" />
+    
+                        <h5 class="mt-3 text-center">{{name}}</h5>
+    
+                        <ul
+                            class="list-group list-group-horizontal-sm justify-content-center"
                         >
-                            <h6 class="text-muted">{{cat.name}}</h6>
-                        </li>
-                    </ul>
-
-                    <hr />
-
-                    <span v-if="desc.length != 0">
-                        <p class="text-justify">{{desc}}</p>
-                        <hr />
-                    </span>
-
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <i class="fa fa-map-marker"></i>
-                            {{ address }}
-                            <span class="text-muted float-right"
-                                >{{distance}}m</span
+                            <li
+                                class="list-group-item border-0"
+                                v-for="cat in categories"
                             >
-                        </li>
-                        <li
-                            class="list-group-item"
-                            v-if="Object.keys(price).length !== 0"
-                        >
-                            <b>Price: </b>{{price.message}}
-                            <i class="fa fa-usd" v-for="num in price.tier"> </i>
-                        </li>
-                        <li class="list-group-item">
-                            <a :href="foursq_url" target="_blank">
-                                Foursquare Page
-                            </a>
-                        </li>
-                        <!-- <i class="fa fa-external-link"></i>  -->
-                    </ul>
-                </div>
-                <div class="col-md-8">
-                    <div id="map"></div>
+                                <h6 class="text-muted">{{cat.name}}</h6>
+                            </li>
+                        </ul>
+    
+                        <hr />
+    
+                        <!-- buttons -->
+    
+                        <div id="buttons-row">
+                            <button class="btn btn-secondary button" @click="openMapApp">
+                                <span class="material-icons" style="margin-right: -12px;">maps</span>                               
+                                <span>Directions</span>
+                            </button>
+                            <button class="btn btn-secondary button" style="margin-left: 12px;">
+                                <span class="material-icons" style="margin-right: 8px;">favorite</span>                               
+                                <span>Favourites</span>
+                            </button>
+                        </div>
+    
+    
+                        <hr />
+    
+                        <span v-if="desc.length != 0">
+                            <p class="text-justify">{{desc}}</p>
+                            <hr />
+                        </span>
+    
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="fa fa-map-marker"></i>
+                                {{ address }}
+                                <span class="text-muted float-right">
+                                    {{distance}}m
+                                </span>
+                            </li>
+                            <li
+                                class="list-group-item"
+                                v-if="Object.keys(price).length !== 0"
+                            >
+                                <b>Price: </b>{{price.message}}
+                                <i class="fa fa-usd" v-for="num in price.tier"> </i>
+                            </li>
+                            <li class="list-group-item">
+                                <a :href="foursq_url" target="_blank">
+                                    Foursquare Page
+                                </a>
+                            </li>
+                            <!-- <i class="fa fa-external-link"></i>  -->
+                        </ul>
+                    </div>
+                    <div class="col-md-8">
+                        <div id="map"></div>
+                    </div>
                 </div>
             </div>
         </div>
+        
 
         <script src="./javascript/map.js"></script>
         <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
