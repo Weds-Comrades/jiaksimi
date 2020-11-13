@@ -65,11 +65,9 @@ var main = new Vue({
                 $('#select_image').collapse('hide');
 
                 const params = new URLSearchParams();
-                params.append('email', this.email);
+                params.append('email', this.email.toLowerCase());
                 params.append('name', this.name);
                 params.append('image', this.image);
-
-                console.log(this.image)
 
                 if(this.password.length > 0) {
                     params.append('password', this.password);

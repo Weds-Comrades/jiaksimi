@@ -26,8 +26,9 @@ if (isset($_POST['user'])) {
     $email = $new_user['email'];
     $password = password_hash($new_user["password"], PASSWORD_DEFAULT); // Create a password hash
     $name = $new_user['name'];
+    $photo = $new_user['image'];
 
-    $user->setUserDetails($email, $name, $password);
+    $user->setUserDetails($email, $name, $password, $photo);
 
     if ($user->saveUser()) {
         $response_array = array();
@@ -37,6 +38,9 @@ if (isset($_POST['user'])) {
         $response_array['locations'] = $user->getFavouriteLocations();
 
         $_SESSION["user"] = $response_array;
+        http_response_code(200);
+        json_encode(array('message' => $new_user['name']));
+
     } else {
         http_response_code(500);
         json_encode(array('message' => 'Email exist'));
