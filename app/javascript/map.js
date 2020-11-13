@@ -3,12 +3,12 @@ const main = new Vue({
     data: {
         // links for navbar
         links: {
-            'home': './',
-            'favourites': '#',
-            'settings': './sites/profile.html',
-            'logout': './sites/logout.php',
-            'split': './sites/bill_splitter.html',
-            'login': './sites/login.php',
+            'home': '../',
+            'favourites': './favourites.html',
+            'settings': './profile.html',
+            'logout': './logout.php',
+            'split': './bill_splitter.html',
+            'login': './login.php',
         },
 
         // map variables
@@ -41,7 +41,7 @@ const main = new Vue({
     },
     methods: {
         getUserInfo: async function() {
-            await axios.get('../server/api/get-user-details.php')
+            await axios.get('../../server/api/get-user-details.php')
                 .then(res => {
                     this.is_favourite = res.data.locations.includes(this.foursq_id);
                     this.is_user_login = true;
@@ -90,7 +90,7 @@ const main = new Vue({
             const params = new URLSearchParams();
             params.append('place_id', this.foursq_id);
 
-            await axios.post("../server/api/update-favourites.php", params)
+            await axios.post("../../server/api/update-favourites.php", params)
                 .then(res => {
                     // update user info
                     this.getUserInfo();
