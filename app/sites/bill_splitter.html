@@ -4,31 +4,18 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Jiak Simi</title>
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="../css/shared.css">
-    <title>Jiak Simi</title>
+    <link rel="stylesheet" href="../css/bill_split.css">
+
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="../javascript/components/navbar.js"></script>
-
-    <style>
-        body{
-            background-color: #e5e5e5;
-        }
-
-        #Input{
-            display: grid;
-            justify-content: center;
-        }
-
-        #who_share{
-            margin-left: 50px;
-        }
-
-    </style>
 
 </head>
 <body>
@@ -40,13 +27,13 @@
         <div id="Input">
             <!--Huge Title, don't wanna miss it out-->
             <div class="d-flex justify-content-center">
-                <h1 style="margin-top:60px;margin-bottom:100px;">Bill Splitter</h1>
+                <h1 class="title">Bill Splitter</h1>
             </div>
 
             <!--Section where user inserts information-->
             <div>
                 <div class="d-flex justify-content-center">
-                    <label for="" style="font-weight: bold; margin-bottom: 20px;">Please give the following details</label>
+                    <label for="" class="please">Please give the following details</label>
                 </div>
     
                 <form action="" id="form1">
@@ -139,7 +126,7 @@
         <!--Second part of the page where user inputs more specific information like the dish, the cost etc-->
         <div id="main_output" class="row d-flex justify-content-center" style="width:80%; margin:auto;">
             <!--Form for user to specify details-->
-            <div class="col-md-6" style=" border-radius: 15px; padding:15px; margin:10px; border:rgb(236, 236, 236) solid 1.5px;">
+            <div class="col-md-6 split-card">
                 <form action="" id="form2">
                     <div class="form-group">
                         <input type="text" class="form-control" id="dishName" placeholder="What did you share?">
