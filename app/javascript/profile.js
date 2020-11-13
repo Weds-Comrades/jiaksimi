@@ -11,6 +11,8 @@ var main = new Vue({
             'login': './login.php',
         },
 
+        possibleImages: ['cat', 'dog', 'fox', 'kingfisher', 'rabbit', 'squrriel'],
+
         // user info
         email: "",
         name: "",

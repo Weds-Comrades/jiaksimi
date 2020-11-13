@@ -55,34 +55,12 @@
                         <h6>Change Profile Picture</h6>
 
                         <div class="pic-row">
-                            <label>
-                                <input type="radio" name="image_picker" value="cat" v-model="image">
-                                <img src="../images/profile/cat.png" class="profile_image_picker">
-                            </label>
-
-                            <label>
-                                <input type="radio" name="image_picker" value="dog" v-model="image">
-                                <img src="../images/profile/dog.png" class="profile_image_picker">
-                            </label>
-
-                            <label>
-                                <input type="radio" name="image_picker" value="fox" v-model="image">
-                                <img src="../images/profile/fox.png" class="profile_image_picker">
-                            </label>
-
-                            <label>
-                                <input type="radio" name="image_picker" value="rabbit" v-model="image">
-                                <img src="../images/profile/rabbit.png" class="profile_image_picker">
-                            </label>
-
-                            <label>
-                                <input type="radio" name="image_picker" value="squrriel" v-model="image">
-                                <img src="../images/profile/squrriel.png" class="profile_image_picker">
-                            </label>
-
-                            <label>
-                                <input type="radio" name="image_picker" value="kingfisher" v-model="image">
-                                <img src="../images/profile/kingfisher.png" class="profile_image_picker">
+                            <label v-for="a_image in possibleImages">
+                                <input type="radio" name="image_picker"
+                                    :value="a_image"
+                                    v-model="image"
+                                >
+                                <img :src="'../images/profile/' + a_image + '.png'" class="profile_image_picker">
                             </label>
                         </div>
                     </div>
