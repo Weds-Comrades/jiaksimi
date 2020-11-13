@@ -2,12 +2,6 @@ Vue.component('navbar', {
     props: ['is-login', 'links'],
     template: `
     <nav class="navbar navbar-dark bg-dark sticky-top nav">
-        <ul class="list-unstyled">
-            <li class="nav-item">
-                <a class="nav-link" v-bind:href="links.split">Bill Splitter</a>
-            </li>
-        </ul>
-
         <a v-if="!isLogin" v-bind:href="links.login" class="btn btn-light">
             Login
         </a>
@@ -23,9 +17,13 @@ Vue.component('navbar', {
                     <i class="material-icons">favorite</i>
                     <span class="dropdown-text">Favourites</span>
                 </a>
+                <a class="dropdown-item links" v-bind:href="links.split">
+                    <i class="material-icons">account_balance</i>
+                    <span class="dropdown-text">Split Bills</span>
+                </a>
                 <a class="dropdown-item links" v-bind:href="links.settings">
-                    <i class="material-icons">settings</i>
-                    <span class="dropdown-text">Account Settings</span>
+                    <i class="material-icons">person</i>
+                    <span class="dropdown-text">Profile</span>
                 </a>
                 <a class="dropdown-item links" v-bind:href="links.logout">
                     <i class="material-icons">exit_to_app</i>
