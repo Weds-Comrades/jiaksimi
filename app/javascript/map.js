@@ -82,7 +82,7 @@ const main = new Vue({
                 .catch((error) => alert(error));
         },
         openMapApp: function() {
-            window.location.href = `https://www.google.com/maps/dir/?api=1&origin=${this.currentPos}&destination=${this.venuePos}`
+            window.open(`https://www.google.com/maps/dir/?api=1&origin=${this.currentPos}&destination=${this.venuePos}`, '_blank');
         },
 
         // send to server to set as or remove as favourites
