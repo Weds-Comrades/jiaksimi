@@ -171,7 +171,7 @@
             alert("Please enter both the name of the dish and the cost.")
         }
         else if(isNaN(dish_cost)){
-            alert("Please enter a numerical calue for the cost of the dish.")
+            alert("Please enter a numerical value for the cost of the dish.")
         }
         else{
             
