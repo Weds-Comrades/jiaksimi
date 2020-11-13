@@ -1,0 +1,40 @@
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+    height: 100%;
+}
+
+.container-fluid, .row {
+    height: 100%;
+}
+
+.col-md-8 {
+    padding: 0;
+}
+
+html, body, #main {
+    height: 100%;
+}
+
+#nav {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: 0
+}
+
+
+/* buttons row */
+#buttons-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#buttons-row button {
+    border-radius: 12px;
+    padding: 10px 12px;
+    display: flex;
+    align-items: center;    
+}
+
