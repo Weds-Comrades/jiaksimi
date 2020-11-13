@@ -17,6 +17,9 @@ var main = new Vue({
         password: "",
         passwordC: "",
         image_location: "",
+        imagePreview: "",
+        imgLocation: "",
+        src: "",
 
         // booleans
         is_user_login: false,
@@ -77,21 +80,30 @@ var main = new Vue({
                     this.is_email_invalid = true;
                 })
             }
+        },
+
+        changeImage: function(imgLocation) {
+            this.$refs.imagePreview.style.backgroundImage = imgLocation;
+            console.log(this.$refs.imagePreview);
         }
     }
 });
 
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-            $('#imagePreview').hide();
-            $('#imagePreview').fadeIn(650);
-        }
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-$("#photo").change(function() {
-    readURL(this);
-});
+// function changeImage(input) {
+//     if (input.files && input.files[0]) {
+//         var reader = new FileReader();
+//         reader.onload = function(e) {
+//             $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+//             $('#imagePreview').hide();
+//             $('#imagePreview').fadeIn(650);
+//         }
+//         reader.readAsDataURL(input.files[0]);
+//     }
+// }
+// $("#photo").change(function() {
+//     readURL(this);
+// });
+
+// function changeImage(imgLocation) {
+//     document.getElementById('imagePreview').style.backgroundImage = imgLocation;
+// };
