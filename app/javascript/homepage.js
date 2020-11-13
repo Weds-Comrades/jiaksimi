@@ -4,7 +4,7 @@ var main = new Vue({
         venues: [],
 
         // developers
-        limit: 4,
+        limit: 12,
 
         // required for foursquare apis
         currentPos: default_location,
@@ -86,19 +86,19 @@ var main = new Vue({
             // get images
             for (const venue of venues) {
                 const url_venue_details = `https://api.foursquare.com/v2/venues/${venue.id}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`
-                // var photo = await axios.get(url_venue_details)
-                //     .then(response => {
-                //         if (response.data.response.venue.bestPhoto !== undefined) {
-                //             var photo_raw = response.data.response.venue.bestPhoto;
-                //             return photo_raw.prefix + 'cap300' + photo_raw.suffix;
-                //         } else {
-                //             var photo_raw = response.data.response.venue.categories[0].icon;
-                //             return photo_raw.prefix + '512' + photo_raw.suffix;
-                //         }
-                //     });
+                var photo = await axios.get(url_venue_details)
+                    .then(response => {
+                        if (response.data.response.venue.bestPhoto !== undefined) {
+                            var photo_raw = response.data.response.venue.bestPhoto;
+                            return photo_raw.prefix + 'cap300' + photo_raw.suffix;
+                        } else {
+                            var photo_raw = response.data.response.venue.categories[0].icon;
+                            return photo_raw.prefix + '512' + photo_raw.suffix;
+                        }
+                    });
 
                 // dev purpose
-                var photo = "./images/bg-sg-1.jpg";
+                // var photo = "./images/bg-sg-1.jpg";
 
                 // push to array
                 fetch_venue.push({
@@ -106,7 +106,7 @@ var main = new Vue({
                     name: venue.name,
                     distance: venue.location.distance,
                     photo: photo,
-                    url: `./map.html?id=${venue.id}&distance=${venue.location.distance}&currentPos=${this.currentPos.lat + ',' + this.currentPos.lng}&venuePos=${venue.location.lat + ',' +  venue.location.lng}`,
+                    url: `./sites/map.html?id=${venue.id}&distance=${venue.location.distance}&currentPos=${this.currentPos.lat + ',' + this.currentPos.lng}&venuePos=${venue.location.lat + ',' +  venue.location.lng}`,
                 });
             }
             this.venues = fetch_venue;

@@ -1,0 +1,23 @@
+body{
+  background-color: #e5e5e5;
+}
+
+
+.title {
+  margin-top: 60px;
+  margin-bottom: 100px;
+}
+
+.please {
+  font-weight: bold; 
+  margin-bottom: 20px;
+}
+
+#Input{
+  display: grid;
+  justify-content: center;
+}
+
+#who_share{
+  margin-left: 50px;
+}

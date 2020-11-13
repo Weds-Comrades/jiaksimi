@@ -4,7 +4,8 @@
     height: 100%;
 }
 
-.container-fluid, .row {
+.container-fluid,
+.row {
     height: 100%;
 }
 
@@ -12,7 +13,15 @@
     padding: 0;
 }
 
-html, body, #main {
+@media only screen and (max-width: 800px) {
+    .col-md-8 {
+        height: 100%;
+    }
+}
+
+html,
+body,
+#main {
     height: 100%;
 }
 
@@ -20,9 +29,8 @@ html, body, #main {
     position: absolute;
     top: 0;
     left: auto;
-    right: 0
+    right: 0;
 }
-
 
 /* buttons row */
 #buttons-row {
@@ -35,6 +43,5 @@ html, body, #main {
     border-radius: 12px;
     padding: 10px 12px;
     display: flex;
-    align-items: center;    
+    align-items: center;
 }
-

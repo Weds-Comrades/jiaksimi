@@ -4,7 +4,7 @@ var main = new Vue({
         // links for navbar
         links: {
             'home': '../',
-            'favourites': '#',
+            'favourites': './favourites.html',
             'settings': './profile.html',
             'logout': './logout.php',
             'split': './bill_splitter.html',
