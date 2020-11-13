@@ -4,22 +4,24 @@
             is_user_login: false,
 
             links: {
-                'home': './',
-                'favourites': '#',
-                'settings': '#',
-                'logout': '../server/test/logout.php',
-                'split': '#',
+                'home': '../',
+                'favourites': './favourites.html',
+                'settings': './profile.html',
+                'logout': '../../server/test/logout.php',
+                'split': './bill_splitter.html',
+                'login': './login.php',
             },
+        },
+        mounted: async function(){
+            await this.getUserInfo();
         },
 
         methods: {
             getUserInfo: async function() {
-                await axios.get('../server/api/get-user-details.php')
+                await axios.get('../../server/api/get-user-details.php')
                     .then((res => {
                         var user = res.data; 
                         this.is_user_login = true;
-                        this.radius = user.filter.distance != 0 ? user.filter.distance : default_filter.radius;
-                        this.user_tags = user.filter.tags;
                     }))
                     .catch(err => { console.log(err); });
             }
