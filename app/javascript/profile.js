@@ -92,6 +92,6 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-$("#imageUpload").change(function() {
+$("#photo").change(function() {
     readURL(this);
 });
