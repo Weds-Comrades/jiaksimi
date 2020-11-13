@@ -16,6 +16,7 @@ var main = new Vue({
         name: "",
         password: "",
         passwordC: "",
+        currentPic: "",
         image: "",
 
         // booleans
@@ -39,6 +40,7 @@ var main = new Vue({
                     this.email = user.email;
                     this.name = user.name;
                     this.image = user.photo;
+                    this.currentPic = "../images/profile/" + user.photo + ".png";
                 }).catch(error => {
                     console.log("Not login");
                     window.location.replace("../");
@@ -75,10 +77,10 @@ var main = new Vue({
                     '../../server/api/update-user.php',
                     params,
                 ).then(res => {
-                    console.log(res.data)
                     this.password = "";
                     this.passwordC = "";
                     this.is_email_invalid = false;
+                    this.getUserInfo();
                     this.toggleEdit();
                 }).catch(error => {
                     this.is_email_invalid = true;

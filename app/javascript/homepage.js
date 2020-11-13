@@ -31,6 +31,7 @@ var main = new Vue({
             'login': './sites/login.php',
         },
 
+        image: "",
     },
     mounted: async function() {
         await this.getAllTags();
@@ -122,6 +123,7 @@ var main = new Vue({
                     this.is_user_login = true;
                     this.radius = user.filter.distance != 0 ? user.filter.distance : default_filter.radius;
                     this.user_tags = user.filter.tags;
+                    this.image = "./images/profile/" + user.user.photo + ".png";
                 }))
                 .catch(err => { console.log(err); });
         },

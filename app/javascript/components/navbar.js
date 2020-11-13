@@ -1,5 +1,18 @@
 Vue.component('navbar', {
-    props: ['is-login', 'links'],
+    props: {
+        'is-login': {
+            type: Boolean,
+            default: false,
+        },
+        'links': {
+            type: Object,
+            required: true,
+        },
+        "image": {
+            type: String,
+            default: '../images/profile/cat.png',
+        }
+    },
     template: `
     <nav class="navbar navbar-dark bg-dark sticky-top nav">
         <a v-if="!isLogin" v-bind:href="links.login" class="btn btn-light">
@@ -7,7 +20,7 @@ Vue.component('navbar', {
         </a>
 
         <div v-else class="dropdown">
-            <button class="btn round-dropdown" id="dropdownMenuButton" type="button" data-toggle="dropdown"></button>
+            <button class="btn round-dropdown" :style="{'background-image': 'url(' + image + ')'}" id="dropdownMenuButton" type="button" data-toggle="dropdown"></button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item links" v-bind:href="links.home">
                     <i class="material-icons">local_dining</i>
