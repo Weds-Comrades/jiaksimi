@@ -11,21 +11,22 @@ var main = new Vue({
             'login': './login.php',
         },
 
+        possibleImages: ['cat', 'dog', 'fox', 'kingfisher', 'rabbit', 'squrriel'],
+
         // user info
         email: "",
         name: "",
         password: "",
         passwordC: "",
-        image_location: "",
-        imagePreview: "",
-        imgLocation: "",
-        src: "",
+        currentPic: "",
+        image: "",
 
         // booleans
         is_user_login: false,
         is_pwd_invalid: false,
         is_email_invalid: false,
         is_edit: false,
+        is_profile_picker_open: false,
     },
 
     mounted: async function() {
@@ -40,7 +41,8 @@ var main = new Vue({
                     this.is_user_login = true;
                     this.email = user.email;
                     this.name = user.name;
-                    // this.image_location = res.user.photo;
+                    this.image = user.photo;
+                    this.currentPic = "../images/profile/" + user.photo + ".png";
                 }).catch(error => {
                     console.log("Not login");
                     window.location.replace("../");
@@ -59,10 +61,13 @@ var main = new Vue({
             this.is_pwd_invalid = !this.validatePassword();
             
             if (!this.is_pwd_invalid) {
+
+                $('#select_image').collapse('hide');
+
                 const params = new URLSearchParams();
-                params.append('email', this.email);
+                params.append('email', this.email.toLowerCase());
                 params.append('name', this.name);
-                params.append('image', this.image_location);
+                params.append('image', this.image);
 
                 if(this.password.length > 0) {
                     params.append('password', this.password);
@@ -75,35 +80,12 @@ var main = new Vue({
                     this.password = "";
                     this.passwordC = "";
                     this.is_email_invalid = false;
+                    this.getUserInfo();
                     this.toggleEdit();
                 }).catch(error => {
                     this.is_email_invalid = true;
                 })
             }
         },
-
-        changeImage: function(imgLocation) {
-            this.$refs.imagePreview.style.backgroundImage = imgLocation;
-            console.log(this.$refs.imagePreview);
-        }
     }
 });
-
-// function changeImage(input) {
-//     if (input.files && input.files[0]) {
-//         var reader = new FileReader();
-//         reader.onload = function(e) {
-//             $('#imagePreview').css('background-image', 'url('+e.target.result +')');
-//             $('#imagePreview').hide();
-//             $('#imagePreview').fadeIn(650);
-//         }
-//         reader.readAsDataURL(input.files[0]);
-//     }
-// }
-// $("#photo").change(function() {
-//     readURL(this);
-// });
-
-// function changeImage(imgLocation) {
-//     document.getElementById('imagePreview').style.backgroundImage = imgLocation;
-// };

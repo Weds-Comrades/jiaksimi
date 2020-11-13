@@ -94,10 +94,9 @@ CONSTRAINT FK_UserTag_2 FOREIGN KEY (`tag_id`) REFERENCES `Tag`(`id`)
 -- Insert
 --
 INSERT INTO `User` (`id`, `email`, `password`, `name`, `photo`) VALUES 
-  (1, 'admin', '$2y$10$dSUdZLhaMRilJ11BznGO3OERSr3iBTeziynFbdV505xEBx/qIafNO', 'Admin', NULL);
+  (1, 'admin@test.com', '$2y$10$dSUdZLhaMRilJ11BznGO3OERSr3iBTeziynFbdV505xEBx/qIafNO', 'Admin', 'cat');
 
 INSERT INTO  `Tag` (`tag_name`, `tag_uid`) VALUES 
-  -- ('All', '4d4b7105d754a06374d81259'),
   ('Chinese', '4bf58dd8d48988d145941735'),
   ('Dessert', '4bf58dd8d48988d1d0941735'),
   ('Fast Food', '4bf58dd8d48988d16e941735'),

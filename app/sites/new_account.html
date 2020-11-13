@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Sign Up</title>
 
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- External CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/shared.css">
@@ -13,41 +16,70 @@
 </head>
 <body>
 
-    <div class="container" id="createAccount">
-        <h1>Create an Account</h1>
-    </div>
-
-    <div class="container px-5" >
-        <form id="create-account">
-            <div id="name-c" class="form-group">
-                <label for="name-input">Name</label>
-                <input type="text" class="form-control" id="name" name="name-input" placeholder="Name" required>
-            </div>
-
-            <div id="email-c" class="form-group">
-                <label for="email-input">Email</label>
-                <input type="email" class="form-control" id="email" name="email-input" placeholder="Email" required autocomplete="email">
-                <div class="invalid-feedback">Email is in used. Try using another one</div>
-            </div>
-
-            <div id="password-c" class="form-group">
-                <label for="password-input">Password</label>
-                <input type="password" class="form-control" id="password" name="password-input" placeholder="Password" autocomplete="new-password" required>
-                <div class="invalid-feedback">Passwords does not match</div>
-            </div>
-
-            <div id="passwordConfirm-c" class="form-group">
-                <label for="password-input-2">Confirm Password</label>
-                <input type="password" class="form-control" id="password2" name="password-input2" placeholder="Confirm Password" autocomplete="new-password" required>
-                <div class="invalid-feedback">Passwords does not match</div>
-            </div>
-
-            <div class="button">
-                <button type="submit" class="btn btn-primary" id="button-submit">Sign Up</button>
-            </div>
-        </form>
-
-    </div>
+    <main id="main">
+        <div class="container" id="createAccount">
+            <h1>Create an Account</h1>
+        </div>
+    
+        <div class="container px-5" >
+            <form v-on:submit.prevent="createAccount" method="post">
+                <div id="name-c" class="form-group">
+                    <label for="name-input">Name</label>
+                    <input 
+                        type="text"
+                        class="form-control"
+                        name="name-input"
+                        placeholder="Name"required
+                        v-model.trim="name"
+                    >
+                </div>
+    
+                <div id="email-c" class="form-group">
+                    <label for="email-input">Email</label>
+                    <input type="email"
+                        :class="is_email_invalid ? 'form-control is-invalid' : 'form-control' "
+                        name="email-input"
+                        placeholder="Email"
+                        autocomplete="email"
+                        v-model.trim="email"
+                        required
+                    >
+                    <div class="invalid-feedback">This email address is already in used</div>
+                </div>
+    
+                <div id="password-c" class="form-group">
+                    <label for="password-input">Password</label>
+                    <input type="password"
+                        :class="is_pwd_invalid ? 'form-control is-invalid' : 'form-control' "
+                        name="password-input"
+                        placeholder="Password"
+                        autocomplete="new-password"
+                        v-model.trim="password"
+                        required
+                    >
+                    <div class="invalid-feedback">Passwords does not match</div>
+                </div>
+    
+                <div id="passwordConfirm-c" class="form-group">
+                    <label for="password-input-2">Confirm Password</label>
+                    <input
+                        type="password"
+                        :class="is_pwd_invalid ? 'form-control is-invalid' : 'form-control' "
+                        name="password-input2"
+                        placeholder="Confirm Password"
+                        autocomplete="new-password"
+                        v-model.trim="passwordC"
+                        required
+                    >
+                    <div class="invalid-feedback">Passwords does not match</div>
+                </div>
+    
+                <div class="button">
+                    <button type="submit" class="btn btn-primary" id="button-submit">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </main>
 
     <!-- Custom JavaScript -->
     <script src="../javascript/new_account.js"></script>

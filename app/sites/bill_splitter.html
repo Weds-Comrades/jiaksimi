@@ -20,7 +20,11 @@
 </head>
 <body>
 
-    <navbar v-bind:is-login="is_user_login"v-bind:links="links" id="nav"></navbar>
+    <navbar
+        v-bind:is-login="is_user_login"
+        v-bind:links="links"
+        v-bind:image="image"
+        id="nav"></navbar>
 
     <!--First Part of the page where user specifies number of people, svc charge and gst-->
     <div id="input_section" class="d-inline">

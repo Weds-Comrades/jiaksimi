@@ -12,6 +12,7 @@ var main = new Vue({
 
         favourites_list: [],
         venues: [],
+        image: "",
 
         is_user_login: false,
         is_favourite_loaded: false,
@@ -27,6 +28,7 @@ var main = new Vue({
                     var user = res.data; 
                     this.is_user_login = true;
                     this.favourites_list = user.locations;
+                    this.image = "../images/profile/" + user.user.photo + ".png";
                 }))
                 .catch(err => { window.location.replace("../index.html"); });
         },
@@ -51,7 +53,7 @@ var main = new Vue({
                     });
 
                 // dev purpose
-                // var photo = "../images/bg-sg-1.jpg";
+                // var photo = "../images/bg/sg-1.jpg";
 
                 // push to array
                 fetch_venue.push({

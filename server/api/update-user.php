@@ -31,7 +31,7 @@ if (!isset($_SESSION['user'])) {
 
     $new_name = $_POST['name'];
     $new_email = $_POST['email'];
-    $new_photo = isset($_POST['photo']) ? $_POST['photo'] : null;
+    $new_photo = isset($_POST['image']) ? $_POST['image'] : null;
 
     // if password is to be changed
     if (strlen($_POST["password"])) {

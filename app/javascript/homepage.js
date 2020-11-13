@@ -31,6 +31,7 @@ var main = new Vue({
             'login': './sites/login.php',
         },
 
+        image: "",
     },
     mounted: async function() {
         await this.getAllTags();
@@ -81,7 +82,7 @@ var main = new Vue({
             var venues = await axios.get(url)
                 .then(response => {
                     return response.data.response.venues;  
-                });
+                }).catch((error) => {return []});
 
             // get images
             for (const venue of venues) {
@@ -98,7 +99,7 @@ var main = new Vue({
                     });
 
                 // dev purpose
-                // var photo = "./images/bg-sg-1.jpg";
+                // var photo = "./images/bg/sg-1.jpg";
 
                 // push to array
                 fetch_venue.push({
@@ -117,12 +118,13 @@ var main = new Vue({
         // if login, fill up the user details
         getUserInfo: async function() {
             await axios.get('../server/api/get-user-details.php')
-                .then((res => {
+                .then((res) => {
                     var user = res.data; 
                     this.is_user_login = true;
-                    this.radius = user.filter.distance != 0 ? user.filter.distance : default_filter.radius;
+                    this.radius = user.filter.distance != null ? user.filter.distance : default_filter.radius;
                     this.user_tags = user.filter.tags;
-                }))
+                    this.image = "./images/profile/" + user.user.photo + ".png";
+                })
                 .catch(err => { console.log(err); });
         },
 
@@ -153,7 +155,9 @@ var main = new Vue({
             await axios.post(
                 '../server/api/update-filter.php',
                 params,
-            ).then(res => {console.log(res)})
+            ).then(res => {
+                //console.log(res)
+            })
             .catch(error => console.log(error.response))
 
         },

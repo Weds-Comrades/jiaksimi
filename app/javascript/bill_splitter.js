@@ -11,6 +11,8 @@
                 'split': './bill_splitter.html',
                 'login': './login.php',
             },
+
+            image: "",
         },
         mounted: async function(){
             await this.getUserInfo();
@@ -20,8 +22,8 @@
             getUserInfo: async function() {
                 await axios.get('../../server/api/get-user-details.php')
                     .then((res => {
-                        var user = res.data; 
                         this.is_user_login = true;
+                        this.image = "../images/profile/" + res.data.user.photo + ".png";
                     }))
                     .catch(err => { console.log(err); });
             }

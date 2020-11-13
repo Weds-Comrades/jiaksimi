@@ -23,6 +23,7 @@ const main = new Vue({
         currentPos: "",
         venuePos: "",
         foursq_id: "",
+        image: "",
 
         is_user_login: false,
         is_favourite: false,
@@ -44,6 +45,7 @@ const main = new Vue({
             await axios.get('../../server/api/get-user-details.php')
                 .then(res => {
                     this.is_favourite = res.data.locations.includes(this.foursq_id);
+                    this.image = "../images/profile/" + res.data.user.photo + ".png";
                     this.is_user_login = true;
                 })
         },
