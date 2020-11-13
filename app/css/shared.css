@@ -48,3 +48,9 @@ body {
 .pointer {
   cursor: pointer;
 }
+
+.spin {
+  width: 5em;
+  height: 5em;
+  margin-top: 2em;
+}

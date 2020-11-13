@@ -82,7 +82,7 @@ var main = new Vue({
             var venues = await axios.get(url)
                 .then(response => {
                     return response.data.response.venues;  
-                });
+                }).catch((error) => {return []});
 
             // get images
             for (const venue of venues) {
