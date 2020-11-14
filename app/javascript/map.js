@@ -76,10 +76,10 @@ const main = new Vue({
                         this.desc = venue.description;
                     }
                     this.categories = venue.categories;
-                    this.photo =
-                        venue.bestPhoto.prefix +
-                        "cap300" +
-                        venue.bestPhoto.suffix;
+
+                    this.photo = venue.bestPhoto !== undefined ?
+                        venue.bestPhoto.prefix + "cap300" + venue.bestPhoto.suffix :
+                        venue.categories[0].icon.prefix + + "cap300" + venue.categories[0].icon.suffix;
                 })
                 .catch((error) => alert(error));
         },
