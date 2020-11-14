@@ -57,6 +57,12 @@ var main = new Vue({
             this.is_edit = !this.is_edit;
         },
 
+        togglePicker: function() {
+            if (this.is_edit) {
+                $('#select_image').collapse('toggle');
+            }
+        },
+
         updateProfile: async function() {
             this.is_pwd_invalid = !this.validatePassword();
             

@@ -42,8 +42,10 @@
                             </label>
                         </div>
                         <div class="avatar-preview">
-                            <div id="imagePreview" ref="imagePreview" v-bind:style="{'background-image': 'url(\'../images/profile/'+ image + '.png\')'}">
-                            </div>
+                            <div id="imagePreview" ref="imagePreview"
+                                v-bind:style="{'background-image': 'url(\'../images/profile/'+ image + '.png\')'}"
+                                @click="togglePicker"
+                            ></div>
                         </div>
                     </div>
                 </div>

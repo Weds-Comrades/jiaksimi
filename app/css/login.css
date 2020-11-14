@@ -1,5 +1,10 @@
 body {
-    background-color: #E5E5E5;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.95)), url('../images/bg/sg-2.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: darken;
 }
 
 .container {
@@ -16,6 +21,11 @@ body {
     width: 100%;
     margin-bottom: 1em;
     font-weight: 500;
+    color: white
+}
+
+.form-group label {
+    color: white;
 }
 
 .button {
