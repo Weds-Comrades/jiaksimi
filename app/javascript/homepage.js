@@ -124,7 +124,7 @@ var main = new Vue({
 
                     // the unique case where 0m distance is received
                     this.radius = user.filter.distance != null ? user.filter.distance : default_filter.radius;
-                    this.radius = this.radius !== 0 ? user.filter.distance : default_filter.radius;
+                    this.radius = this.radius !== 0 ? this.radius : default_filter.radius;
 
                     this.user_tags = user.filter.tags;
                     this.image = "./images/profile/" + user.user.photo + ".png";
