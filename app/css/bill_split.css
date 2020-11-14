@@ -1,23 +1,60 @@
 body{
-  background-color: #e5e5e5;
+    background-color: #e5e5e5;
 }
 
+.input-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    margin: 0px auto;
+}
 
-.title {
+.input-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-group {
+    max-width: 500px
+}
+
+.input-data h1 {
   margin-top: 60px;
   margin-bottom: 100px;
+  text-align: center;
 }
 
-.please {
-  font-weight: bold; 
-  margin-bottom: 20px;
+.input-data h5 {
+    text-align: center;
+    margin-bottom: 24px;
 }
 
-#Input{
-  display: grid;
-  justify-content: center;
+/* Show Data */
+.show-data .row{
+    justify-content: center;
 }
 
-#who_share{
-  margin-left: 50px;
+.show-data .card {
+    border-radius: 8px;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.show-data .people {
+    display: flex;
+    justify-content: space-between;
+}
+
+.show-data .back-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#who_share .checkbox {
+    padding: 8px;
+    margin: 0;
 }
