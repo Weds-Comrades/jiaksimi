@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			</form>
 			
 			<div id="link">
-				<a class="text-secondary" href="./new_account.html">Sign up Today!</a>
+				<a class="text-light" href="./new_account.html">Sign up Today!</a>
 			</div>
 
 		</div>
