@@ -84,7 +84,13 @@ const main = new Vue({
                 .catch((error) => alert(error));
         },
         openMapApp: function() {
-            window.open(`https://www.google.com/maps/dir/?api=1&origin=${this.currentPos}&destination=${this.venuePos}`, '_blank');
+            // If user is on MacOS or iOS, open apple maps
+            // else default to google maps
+            if (navigator.appVersion.indexOf("Mac") > 0 || navigator.appVersion.indexOf("like Mac") > 0) {
+                window.open(`http://maps.apple.com/?saddr=${this.currentPos}&daddr=${this.venuePos}`, '_blank');
+            } else {
+                window.open(`https://www.google.com/maps/dir/?api=1&origin=${this.currentPos}&destination=${this.venuePos}`, '_blank');
+            }
         },
 
         // send to server to set as or remove as favourites
