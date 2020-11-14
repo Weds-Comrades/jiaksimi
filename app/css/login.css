@@ -152,13 +152,18 @@ body {
     box-shadow: 0 0 0 5px rgb(0, 123, 255);
 }
 
-
-#alertmsg {
-    padding-bottom: 50px;
-}
-
 #createAccount {
     margin: 100px auto 50px auto;
     /* padding-top: 50px; */
 }
 
+
+/* Bootstrap override, due to contrast issue */
+.invalid-feedback {
+    color: #ff3e50;
+    font-weight: 600;
+}
+
+.form-control.is-invalid, .was-validated .form-control:invalid {
+    border-color: #ff3e50;
+}
