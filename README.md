@@ -20,6 +20,8 @@
     - [Foursquare](https://developer.foursquare.com)
     - [Google Maps](https://developers.google.com/maps/documentation/javascript/get-api-key)
 
+1. Find `server/config/database.php` and modify line 9 and 10 to use the correct password and port number for your MySQL database
+
 1. Start the app server on WAMP or MAMP
 
 1. Load SQL file `server/db/jiaksimi.sql` into database
@@ -28,10 +30,10 @@
 
 1. Ensure that all the alerts shown are green. If they are all green, you are good to go!
 
-1. Open `app/sites/index.html` to start
+1. Open `app/index.html` to begin
 
 ### Passwords
 
-|Username           |Password|
+|Email           |Password|
 |:-----------------:|:-------------------|
-|admin              |P@ssw0rd            |
+|admin@test.com     |P@ssw0rd            |
