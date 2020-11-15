@@ -102,7 +102,6 @@ INSERT INTO  `Tag` (`tag_name`, `tag_uid`) VALUES
   ('Fast Food', '4bf58dd8d48988d16e941735'),
   ('Filipino', '4eb1bd1c3b7b55596b4a748f'),
   ('Food Court', '4bf58dd8d48988d120951735'),
-  ('Gluten-Free', '4c2cd86ed066bed06c3c5209'),
   ('Halal', '52e81612bcbc57f1066b79ff'),
   ('Indian', '4bf58dd8d48988d10f941735'),
   ('Indonesian', '4deefc054765f83613cdba6f'),
