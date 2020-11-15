@@ -39,15 +39,15 @@ var main = new Vue({
                 const url_venue_details = `https://api.foursquare.com/v2/venues/${venue}?client_id=${foursquare.client_id}&client_secret=${foursquare.client_secret}&v=20200928`;
                 var details = await axios.get(url_venue_details)
                     .then(response => {
-                        var photo_raw = response.data.response.venue.bestPhoto !== undefined
-                            ? response.data.response.venue.bestPhoto 
-                            : response.data.response.venue.categories[0].icon;
+                        var photo = response.data.response.venue.bestPhoto !== undefined
+                            ? response.data.response.venue.bestPhoto.prefix + 'cap300' + response.data.response.venue.bestPhoto.suffix
+                            : response.data.response.venue.categories[0].icon.prefix + '512' + response.data.response.venue.categories[0].icon.suffix;
 
                         var name = response.data.response.venue.name;
                         
 
                         return {
-                            photo: photo_raw.prefix + 'cap300' + photo_raw.suffix,
+                            photo: photo,
                             name: name,
                         }
                     });
