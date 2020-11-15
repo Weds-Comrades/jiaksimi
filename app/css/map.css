@@ -20,17 +20,10 @@ body,
 }
 
 .photo {
-    position: relative;
-    overflow: hidden;
     padding-bottom: 100%;
-    background-color: rgb(47, 54, 58);
-}
-
-.photo img {
-    position: absolute;
-    object-fit: cover;
-    height: 100%;
-    object-position: center; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .text-muted {

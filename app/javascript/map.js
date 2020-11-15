@@ -67,7 +67,7 @@ const main = new Vue({
                 .then((response) => {
                     const venue = response.data.response.venue;
                     this.name = venue.name;
-                    this.address = venue.location.address;
+                    this.address = venue.location.address !== undefined ? venue.location.address : venue.name;
                     this.foursq_url = venue.canonicalUrl;
                     if (venue.hasOwnProperty("price")) {
                         this.price = venue.price;
@@ -79,7 +79,7 @@ const main = new Vue({
 
                     this.photo = venue.bestPhoto !== undefined ?
                         venue.bestPhoto.prefix + "cap300" + venue.bestPhoto.suffix :
-                        venue.categories[0].icon.prefix + + "cap300" + venue.categories[0].icon.suffix;
+                        venue.categories[0].icon.prefix + + "512" + venue.categories[0].icon.suffix;
                 })
                 .catch((error) => alert(error));
         },
