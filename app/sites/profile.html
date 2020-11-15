@@ -28,7 +28,7 @@
         ></navbar>
 
         <div class="container px-5 pt-3">
-            <form v-on:submit="updateProfile" method="post">
+            <form v-on:submit.prevent="updateProfile" method="post">
 
                 <div class="form-group">
                     <div class="avatar-upload">

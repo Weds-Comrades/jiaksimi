@@ -55,6 +55,10 @@ var main = new Vue({
 
         toggleEdit: function() {
             this.is_edit = !this.is_edit;
+            this.is_email_invalid = false;
+            this.is_pwd_invalid = false;
+            this.password = "";
+            this.passwordC = "";
         },
 
         togglePicker: function() {
