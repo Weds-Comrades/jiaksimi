@@ -161,6 +161,7 @@ var main = new Vue({
                 params,
             ).then(res => {
                 //console.log(res)
+                this.search();
             })
             .catch(error => console.log(error.response))
 

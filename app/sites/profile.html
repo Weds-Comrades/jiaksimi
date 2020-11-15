@@ -28,7 +28,7 @@
         ></navbar>
 
         <div class="container px-5 pt-3">
-            <form v-on:submit.prevent="" method="post">
+            <form v-on:submit="updateProfile" method="post">
 
                 <div class="form-group">
                     <div class="avatar-upload">
@@ -37,11 +37,12 @@
                                 data-toggle="collapse"
                                 data-target="#select_image"
                                 aria-expanded="false"
+                                type="button"
                             >
                                 <span class='material-icons'>create</span> 
                             </label>
                         </div>
-                        <div class="avatar-preview">
+                        <div class="avatar-preview" :style="is_edit ? 'cursor: pointer;' : ''">
                             <div id="imagePreview" ref="imagePreview"
                                 v-bind:style="{'background-image': 'url(\'../images/profile/'+ image + '.png\')'}"
                                 @click="togglePicker"
@@ -75,9 +76,11 @@
                         class="form-control"
                         id="name_input"
                         name="name_input"
+                        autocomplete="name"
                         placeholder="Name"
                         v-model.trim="name"
                         :readonly="is_edit ? false : true"
+                        required
                     >
                 </div>
 
@@ -89,9 +92,11 @@
                         class="form-control"
                         id="email_input"
                         name="email_input"
+                        autocomplete="email"
                         placeholder="Email"
                         v-model.trim="email"
                         :readonly="is_edit ? false : true"
+                        required
                     >
                     <div class="invalid-feedback">This email address is already in used</div>
                 </div>
@@ -103,6 +108,7 @@
                         :class="is_pwd_invalid ? 'form-control is-invalid' : 'form-control'"
                         id="password_input"
                         name="password_input"
+                        autocomplete="new-password"
                         placeholder="Password"
                         v-model.trim="password"
                     >
@@ -116,37 +122,39 @@
                         :class="is_pwd_invalid ? 'form-control is-invalid' : 'form-control'"
                         id="cpassword"
                         name="cpassword"
+                        autocomplete="new-password"
                         placeholder="Confirm Password"
                         v-model.trim="passwordC"
                     >
                     <div class="invalid-feedback">Passwords does not match</div>
-                </div>      
-            </form>
-
-            <div class="text-center" v-if="is_edit">
-                <button v-if="is_edit"
-                    name="submit"
-                    type="submit"
-                    class="btn btn-primary"
-                    @click="updateProfile"
-                >Save</button>
-                <button 
-                    name="cancel"
-                    value="cancel"
-                    @click="toggleEdit"
-                    class="btn btn-secondary"
-                >Cancel</button>
+                </div>   
+                
+                <div class="text-center" v-if="is_edit">
+                    <button v-if="is_edit"
+                        class="btn btn-primary"
+                        name="submit"
+                        type="submit"
+                    >Save</button>
+                    <button 
+                        name="cancel"
+                        value="cancel"
+                        @click="toggleEdit"
+                        class="btn btn-secondary"
+                        type="button"
+                    >Cancel</button>
+                </div>
             </div>
-            <div class="text-center" v-else>
-                <button 
-                    name="cancel"
-                    value="cancel"
-                    @click="toggleEdit"
-                    class="btn btn-primary"
-                >Edit</button>
-            </div>        
-        </div>
+        </form>
 
+        <div class="text-center" v-if="!is_edit">
+            <button 
+                name="cancel"
+                value="cancel"
+                type="button"
+                @click="toggleEdit"
+                class="btn btn-primary"
+            >Edit</button>
+        </div>        
     </main>
 
     <script src="../javascript/profile.js"></script>
