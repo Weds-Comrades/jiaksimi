@@ -31,7 +31,7 @@ if (!isset($_SESSION['user'])) {
         echo json_encode(array("message" => "You done goof"));
     } else {
         $distance = $_POST['distance'];
-        $tag = explode(',', $_POST['tags']);
+        $tag = empty($_POST['tags']) ? [] : explode(',', $_POST['tags']);
         $session = $_SESSION['user'];
         
 
