@@ -4,7 +4,7 @@ var main = new Vue({
         venues: [],
 
         // developers
-        limit: 12,
+        limit: 9,
 
         // required for foursquare apis
         currentPos: default_location,
